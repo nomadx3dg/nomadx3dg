@@ -41,8 +41,8 @@ I'm autistic.
 
 ---
 
-<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=nomadx3dg&show_icons=true&locale=en&layout=compact" alt="nomadx3dg" /></p>
+<p><img align="left" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nomadx3dg&theme=default" alt="Top languages" /></p>
 
-<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=nomadx3dg&show_icons=true&locale=en" alt="nomadx3dg" /></p>
+<p>&nbsp;<img align="center" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=nomadx3dg&theme=default" alt="GitHub stats" /></p>
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=nomadx3dg&" alt="nomadx3dg" /></p>
