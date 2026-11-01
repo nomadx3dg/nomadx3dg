@@ -1,13 +1,13 @@
-<h1 align="center">Hi, I'm Nomad 👋</h1>
+# Hi, I'm Nomad 👋
 
-<p align="center">
-  <b>Low-level programmer from Indonesia 🇮🇩</b><br/>
-  I like file formats, systems code, and understanding how things work underneath.
-</p>
+**Low-level programmer from Indonesia 🇮🇩**
+I like file formats, systems code, and understanding how things work underneath.
 
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=c,cpp,rust,go,py,linux,git,kotlin,java,androidstudio,nodejs,postgres,mysql,mongodb,nginx" alt="Skills" />
-</p>
+
+
+![Skills](https://skillicons.dev/icons?i=c,cpp,rust,go,py,linux,git,kotlin,java,androidstudio,nodejs,postgres,mysql,mongodb,nginx)
+
+
 
 ---
 
@@ -44,11 +44,18 @@ I'm autistic 🧩
 - Email: available on request (I use a temp email ♥)
 
 ---
-<p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nomadx3dg&theme=default&v=2" alt="Top languages" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=nomadx3dg&theme=default&v=2" alt="GitHub stats" />
-</p>
 
-<p align="center">
-  <img src="https://streak-stats.demolab.com/?user=nomadx3dg&hide_border=true&v=2" alt="nomadx3dg streak stats" />
-</p>
+
+
+![Top languages](https://github-readme-stats.vercel.app/api/top-langs/?username=nomadx3dg&layout=compact&langs_count=8&hide_border=true&v=3)
+
+
+
+
+![GitHub stats](https://github-profile-summary-cards.vercel.app/api/cards/stats?username=nomadx3dg&theme=default&v=3)
+
+
+
+
+
+![Streak stats](https://streak-stats.demolab.com/?user=nomadx3dg&hide_border=true&v=3)
