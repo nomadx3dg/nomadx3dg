@@ -36,7 +36,7 @@ I'm autistic.
 
 ### 📫 Contact
 
-- Email: I use a temp email
+- Email: I use a temp email<3
 - GitHub: [@nomadx3dg](https://github.com/nomadx3dg)
 
 ---
