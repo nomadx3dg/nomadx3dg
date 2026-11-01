@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=c,cpp,rust,go,py,linux,git" alt="Core skills" />
+  <img src="https://skillicons.dev/icons?i=c,cpp,rust,go,py,linux,git,kotlin,java,androidstudio,nodejs,postgres,mysql,mongodb,nginx" alt="Skills" />
 </p>
 
 ---
@@ -18,17 +18,17 @@
 
 ## 🌱 Learning
 
-- C and Go, plus writing cleaner, more maintainable code
+- Go, plus writing cleaner, more maintainable C
 
 ## 🛠️ Tech
 
-| Area       | Stack                                      |
-| ---------- | ------------------------------------------ |
-| Systems    | C, C++, Rust, Go                           |
-| Scripting  | Python                                     |
-| Mobile     | Kotlin, Java, Android Studio               |
-| Web & data | HTML, CSS, Node.js, PostgreSQL, MySQL, MongoDB |
-| Tools      | Linux, Git, Nginx                          |
+| Area       | Stack                                           |
+| ---------- | ----------------------------------------------- |
+| Systems    | C, C++, Rust, Go                                |
+| Scripting  | Python                                          |
+| Mobile     | Kotlin, Java, Android Studio                    |
+| Web & data | HTML, CSS, Node.js, PostgreSQL, MySQL, MongoDB  |
+| Tools      | Linux, Git, Nginx                               |
 
 ## 🤝 Let's collaborate
 
@@ -36,20 +36,20 @@ I'm open to contributing to open source projects, and I'd love code reviews and 
 
 ## ⚡ Fun fact
 
-I'm autistic.
+I'm autistic 🧩
 
 ## 📫 Contact
 
-- Email: I use a temp email &lt;3
 - GitHub: [@nomadx3dg](https://github.com/nomadx3dg)
+- Email: available on request (I use a temp email ♥)
 
 ---
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nomadx3dg&layout=compact" alt="Top languages" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nomadx3dg&layout=compact&hide_border=true" alt="Top languages" />
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=nomadx3dg&theme=default" alt="GitHub stats" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=nomadx3dg" alt="nomadx3dg streak stats" />
+  <img src="https://streak-stats.demolab.com/?user=nomadx3dg&hide_border=true" alt="nomadx3dg streak stats" />
 </p>
