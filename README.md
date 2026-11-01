@@ -41,7 +41,7 @@ I'm autistic.
 
 ---
 
-<p><img align="left" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nomadx3dg&theme=default" alt="Top languages" /></p>
+<p><img align="left" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nomadx3dg&theme=default" alt="Top languages" /></p>
 
 <p>&nbsp;<img align="center" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=nomadx3dg&theme=default" alt="GitHub stats" /></p>
 
