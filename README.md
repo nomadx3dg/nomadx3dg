@@ -46,7 +46,7 @@ I'm autistic 🧩
 ---
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nomadx3dg&theme=default" alt="Top languages" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nomadx3dg&theme=default" alt="Top languages" />
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=nomadx3dg&theme=default" alt="GitHub stats" />
 </p>
 
