@@ -44,12 +44,11 @@ I'm autistic 🧩
 - Email: available on request (I use a temp email ♥)
 
 ---
-
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nomadx3dg&theme=default" alt="Top languages" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=nomadx3dg&theme=default" alt="GitHub stats" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nomadx3dg&theme=default&v=2" alt="Top languages" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=nomadx3dg&theme=default&v=2" alt="GitHub stats" />
 </p>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com/?user=nomadx3dg&hide_border=true" alt="nomadx3dg streak stats" />
+  <img src="https://streak-stats.demolab.com/?user=nomadx3dg&hide_border=true&v=2" alt="nomadx3dg streak stats" />
 </p>
