@@ -9,25 +9,29 @@ Hi, I'm Nomad 👋
 
 🔭 What I'm working on
 
-- NAP: An archive format and tool (tar/7zip-style) with its own ".nap" file format.
-- Telegram client fork: Custom changes on top of an existing client.
+- NAP — An archive format and tool with its own ".nap" file format.
+- MoreGram — An unofficial Telegram Android client fork with custom features.
 
 🌱 Learning
 
-- C and Go, plus writing cleaner, more maintainable code.
+- C and Go.
+- Writing cleaner, more maintainable systems software.
 
-🛠️ Tech
+🛠️ Tech Stack
 
-Area| Stack
-Systems| C, C++, Rust, Go
+Area| Technologies
+Systems Programming| C, C++, Rust, Go
 Scripting| Python
-Mobile| Kotlin, Java, Android Studio
-Web & data| HTML, CSS, Node.js, PostgreSQL, MySQL, MongoDB
-Tools| Linux, Git, Nginx
+Mobile Development| Kotlin, Java, Android Studio
+Web Development| HTML, CSS, Node.js
+Databases| PostgreSQL, MySQL, MongoDB
+Tools & Infrastructure| Linux, Git, Nginx
 
 🤝 Let's collaborate
 
-I'm open to contributing to open source projects, and I'd love code reviews and feedback on my C/C++ and Rust. Ask me about C++ and Python.
+I'm open to contributing to open-source projects. I'd appreciate code reviews and feedback on my C/C++ and Rust projects.
+
+Feel free to ask me about C++, Python, systems programming, and file formats.
 
 ⚡ Fun fact
 
@@ -35,7 +39,7 @@ I'm autistic.
 
 📫 Contact
 
-- Email: I use a temp email<3
+- Email: I use a temporary email.
 - GitHub: "@nomadx3dg" (https://github.com/nomadx3dg)
 
 ---
