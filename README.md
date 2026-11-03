@@ -28,7 +28,7 @@ file formats, systems code, understanding how things work underneath
 | ------- | -------- | ---------- |
 | [NAP-AS](https://github.com/nomadx3dg/NAP-AS) | Rust | Archive format and tool (tar/7zip-style) with its own `.nap` file format |
 | [LinkGoResolve](https://github.com/nomadx3dg/LinkGoResolve) | Python | Link resolving project |
-
+| [XVlua](https://github.com/nomadx3dg/xvlua) | C | Faster fork of lua project |
 **Learning:** Go, and writing cleaner, more maintainable C.
 
 ## Tech
