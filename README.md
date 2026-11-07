@@ -22,14 +22,6 @@ file formats, systems code, understanding how things work underneath
 
 ---
 
-## Working on
-
-| Project | Language | What it is |
-| ------- | -------- | ---------- |
-| [NAP-AS](https://github.com/nomadx3dg/NAP-AS) | Rust | Archive format and tool (tar/7zip-style) with its own `.nap` file format |
-| [LinkGoResolve](https://github.com/nomadx3dg/LinkGoResolve) | Python | Link resolving project |
-
-**Learning:** Go, and writing cleaner, more maintainable C.
 
 ## Tech
 
