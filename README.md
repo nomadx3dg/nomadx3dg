@@ -8,5 +8,3 @@
 </div>
 
 <p align="center"><code>~/links</code> &nbsp; <a href="https://github.com/nomadx3dg">GitHub</a></p>
-
-<p align="center"><sub>Nomadx3dg · Neofetch card generated with <a href="https://www.gitskins.com/readme-generator">GitSkins</a></sub></p>
