@@ -1,49 +1,36 @@
-# Hi, I'm Nomad
+<h2 data-importer="text" align="left">Hi 👋! My name is ... and I'm a ..., from ....</h2>
 
-<p>
-<img src="https://img.shields.io/badge/from-Indonesia-b91c1c?style=flat-square" alt="Indonesia" />
-<img src="https://img.shields.io/badge/focus-systems%20%26%20file%20formats-1f2937?style=flat-square" alt="Focus" />
-<img src="https://img.shields.io/badge/C-1f2937?style=flat-square&logo=c&logoColor=white" alt="C" />
-<img src="https://img.shields.io/badge/C++-1f2937?style=flat-square&logo=cplusplus&logoColor=white" alt="C++" />
-<img src="https://img.shields.io/badge/Rust-1f2937?style=flat-square&logo=rust&logoColor=white" alt="Rust" />
-<img src="https://img.shields.io/badge/Go-1f2937?style=flat-square&logo=go&logoColor=white" alt="Go" />
-<img src="https://img.shields.io/badge/Python-1f2937?style=flat-square&logo=python&logoColor=white" alt="Python" />
-</p>
+###
 
-```text
-$ whoami
-nomad, low-level programmer from Indonesia
+<img data-importer="image" align="right" height="150" src="https://i.imgflip.com/65efzo.gif"  />
 
-$ cat interests.txt
-file formats, systems code, understanding how things work underneath
-```
+###
 
-> 見えないところが、一番面白い (´・ω・`)<br/>The parts you can't see are the most interesting.
+<div data-importer="techs" align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="30" alt="javascript logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="30" alt="typescript logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="30" alt="react logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="30" alt="html5 logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="30" alt="css3 logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="30" alt="python logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="30" alt="csharp logo"  />
+</div>
 
----
+###
 
+<div data-importer="socials" align="left">
+  <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="youtube logo"  />
+  <img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="instagram logo"  />
+  <img src="https://img.shields.io/static/v1?message=Twitch&logo=twitch&label=&color=9146FF&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="twitch logo"  />
+  <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo"  />
+  <img src="https://img.shields.io/static/v1?message=Gmail&logo=gmail&label=&color=D14836&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="gmail logo"  />
+  <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="linkedin logo"  />
+</div>
 
-## Tech
-
-| Area       | Stack                                          |
-| ---------- | ---------------------------------------------- |
-| Systems    | C, C++, Rust, Go                               |
-| Scripting  | Python                                         |
-| Mobile     | Kotlin, Java, Android Studio                   |
-| Web & data | HTML, CSS, Node.js, PostgreSQL, MySQL, MongoDB |
-| Tools      | Linux, Git, Nginx                              |
-
-## Collaborate
-
-I'm open to contributing to open source projects, and I'd love code reviews and feedback on my C/C++ and Rust. Ask me about C++ and Python.
-
-## About me
-
-- Autistic, and I like digging into how things work at the lowest level
-- I use a temp email, so GitHub is the best way to reach me: [@nomadx3dg](https://github.com/nomadx3dg)
-
----
-
-```text
-00000000  4e 6f 6d 61 64 0a                                |Nomad.|
-```
+###
