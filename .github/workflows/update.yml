@@ -2,7 +2,7 @@ name: Update profile
 
 on:
   push:
-    paths: [profile.json, build.py]
+    paths: [profile.json, build.py, icons.json]
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
@@ -26,5 +26,9 @@ jobs:
         run: |
           git config user.name "profile-bot"
           git config user.email "profile-bot@users.noreply.github.com"
-          git add README.md
-          git diff --cached --quiet || git commit -m "update profile" && git push
+          git add README.md assets
+          if ! git diff --cached --quiet; then
+            git commit -m "update profile"
+            git pull --rebase origin main
+            git push
+          fi

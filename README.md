@@ -21,37 +21,13 @@ based in     all over, for now
 
 <img src="assets/h-projects.svg" width="100%" alt="Projects" />
 
-<a href="https://github.com/nomadx3dg/cubicle"><img src="https://github-readme-stats.vercel.app/api/pin/?username=nomadx3dg&repo=cubicle&hide_border=true&bg_color=000000&title_color=ffffff&text_color=bbbbbb&icon_color=ffffff" alt="cubicle" /></a>
-
-```
-cubicle         Interactive 3D renderer for your terminal. 
-```
+<a href="https://github.com/nomadx3dg/PROJECT_ONE"><img src="assets/pin-1.svg" width="480" alt="PROJECT_ONE" /></a>
+<a href="https://github.com/nomadx3dg/PROJECT_TWO"><img src="assets/pin-2.svg" width="480" alt="PROJECT_TWO" /></a>
+<a href="https://github.com/nomadx3dg/PROJECT_THREE"><img src="assets/pin-3.svg" width="480" alt="PROJECT_THREE" /></a>
 
 <img src="assets/h-stack.svg" width="100%" alt="Stack" />
 
-<img src="https://img.shields.io/badge/C-000000?style=flat-square&logo=c&logoColor=ffffff&labelColor=000000&color=000000" alt="C" />
-<img src="https://img.shields.io/badge/C%2B%2B-000000?style=flat-square&logo=cplusplus&logoColor=ffffff&labelColor=000000&color=000000" alt="C++" />
-<img src="https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=ffffff&labelColor=000000&color=000000" alt="Rust" />
-<img src="https://img.shields.io/badge/Go-000000?style=flat-square&logo=go&logoColor=ffffff&labelColor=000000&color=000000" alt="Go" />
-<img src="https://img.shields.io/badge/Python-000000?style=flat-square&logo=python&logoColor=ffffff&labelColor=000000&color=000000" alt="Python" />
-<img src="https://img.shields.io/badge/SQL-000000?style=flat-square&labelColor=000000&color=000000" alt="SQL" />
-<img src="https://img.shields.io/badge/HTML-000000?style=flat-square&logo=html5&logoColor=ffffff&labelColor=000000&color=000000" alt="HTML" />
-<img src="https://img.shields.io/badge/CSS-000000?style=flat-square&logo=css3&logoColor=ffffff&labelColor=000000&color=000000" alt="CSS" />
-<img src="https://img.shields.io/badge/JavaScript-000000?style=flat-square&logo=javascript&logoColor=ffffff&labelColor=000000&color=000000" alt="JavaScript" />
-
-<img src="https://img.shields.io/badge/React-000000?style=flat-square&logo=react&logoColor=ffffff&labelColor=000000&color=000000" alt="React" />
-<img src="https://img.shields.io/badge/Vite-000000?style=flat-square&logo=vite&logoColor=ffffff&labelColor=000000&color=000000" alt="Vite" />
-<img src="https://img.shields.io/badge/Linux-000000?style=flat-square&logo=linux&logoColor=ffffff&labelColor=000000&color=000000" alt="Linux" />
-<img src="https://img.shields.io/badge/Git-000000?style=flat-square&logo=git&logoColor=ffffff&labelColor=000000&color=000000" alt="Git" />
-<img src="https://img.shields.io/badge/Neovim-000000?style=flat-square&logo=neovim&logoColor=ffffff&labelColor=000000&color=000000" alt="Neovim" />
-<img src="https://img.shields.io/badge/GitHub%20Actions-000000?style=flat-square&logo=githubactions&logoColor=ffffff&labelColor=000000&color=000000" alt="GitHub Actions" />
-
-<img src="assets/h-art.svg" width="100%" alt="Art" />
-
-<p align="center">
-  <img src="assets/nomad-logo.jpg" width="48%" alt="NOMAD lettering" />
-  <img src="assets/nomad-ascii.jpg" width="48%" alt="ASCII study" />
-</p>
+<img src="assets/stack.svg" width="100%" alt="Languages and tools" />
 
 <img src="assets/h-listening.svg" width="100%" alt="Listening" />
 
@@ -63,8 +39,9 @@ nothing playing right now
 
 <img src="assets/h-github.svg" width="100%" alt="GitHub" />
 
-<img src="https://github-readme-stats.vercel.app/api?username=nomadx3dg&show_icons=true&hide_border=true&bg_color=000000&title_color=ffffff&text_color=bbbbbb&icon_color=ffffff&hide_title=true" alt="GitHub stats" />
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nomadx3dg&layout=compact&hide_border=true&bg_color=000000&title_color=ffffff&text_color=bbbbbb&hide_title=true" alt="Top languages" />
+<img src="assets/stats.svg" width="480" alt="GitHub stats" />
+
+<img src="assets/langs.svg" width="480" alt="Top languages" />
 
 <img src="assets/h-contributing.svg" width="100%" alt="Contributing" />
 
@@ -76,4 +53,10 @@ Want to help out? Fork the repo, make a branch, and send me a pull request. Smal
 
 <img src="assets/divider.svg" width="100%" alt="" />
 
-<div align="center"><sub>always on the move.</sub></div>
+<div align="center">
+
+<img src="assets/nomad-ascii.jpg" width="220" alt="" />
+
+<sub>always on the move.</sub>
+
+</div>
