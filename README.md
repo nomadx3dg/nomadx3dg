@@ -21,14 +21,10 @@ based in     all over, for now
 
 <img src="assets/h-projects.svg" width="100%" alt="Projects" />
 
-<a href="https://github.com/nomadx3dg/PROJECT_ONE"><img src="https://github-readme-stats.vercel.app/api/pin/?username=nomadx3dg&repo=PROJECT_ONE&hide_border=true&bg_color=000000&title_color=ffffff&text_color=bbbbbb&icon_color=ffffff" alt="PROJECT_ONE" /></a>
-<a href="https://github.com/nomadx3dg/PROJECT_TWO"><img src="https://github-readme-stats.vercel.app/api/pin/?username=nomadx3dg&repo=PROJECT_TWO&hide_border=true&bg_color=000000&title_color=ffffff&text_color=bbbbbb&icon_color=ffffff" alt="PROJECT_TWO" /></a>
-<a href="https://github.com/nomadx3dg/PROJECT_THREE"><img src="https://github-readme-stats.vercel.app/api/pin/?username=nomadx3dg&repo=PROJECT_THREE&hide_border=true&bg_color=000000&title_color=ffffff&text_color=bbbbbb&icon_color=ffffff" alt="PROJECT_THREE" /></a>
+<a href="https://github.com/nomadx3dg/cubicle"><img src="https://github-readme-stats.vercel.app/api/pin/?username=nomadx3dg&repo=cubicle&hide_border=true&bg_color=000000&title_color=ffffff&text_color=bbbbbb&icon_color=ffffff" alt="cubicle" /></a>
 
 ```
-project_one     a quick line on what it does and why I made it
-project_two     a quick line on what it does and why I made it
-project_three   a quick line on what it does and why I made it
+cubicle         Interactive 3D renderer for your terminal. 
 ```
 
 <img src="assets/h-stack.svg" width="100%" alt="Stack" />
@@ -76,7 +72,7 @@ Want to help out? Fork the repo, make a branch, and send me a pull request. Smal
 
 <img src="assets/h-contact.svg" width="100%" alt="Contact" />
 
-[Email](mailto:you@example.com) / [Website](https://example.com) / [X](https://x.com/yourhandle)
+[Email](mailto:moqxcz@gmail.com) / [Website](https:/nomadx3dg.vercel.app) / [X](https://x.com)
 
 <img src="assets/divider.svg" width="100%" alt="" />
 
