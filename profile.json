@@ -1,0 +1,108 @@
+{
+  "name": "Nomad",
+  "github_username": "nomadx3dg",
+  "tagline": "builder / wanderer / tinkerer",
+  "bio": "I'm Nomad. I make small, slightly weird tools and a lot of half-finished experiments, usually late at night. If something annoys me enough, I'll build my own fix for it. I'm always up for teaming up on something fun.",
+  "status": {
+    "working_on": "the thing I can't stop thinking about (edit me)",
+    "learning": "something new, as usual (edit me)",
+    "ask_me_about": "whatever you're curious about (edit me)",
+    "based_in": "all over, for now"
+  },
+  "skills": {
+    "languages": [
+      [
+        "C",
+        "c"
+      ],
+      [
+        "C++",
+        "cplusplus"
+      ],
+      [
+        "Rust",
+        "rust"
+      ],
+      [
+        "Go",
+        "go"
+      ],
+      [
+        "Python",
+        "python"
+      ],
+      [
+        "SQL",
+        ""
+      ],
+      [
+        "HTML",
+        "html5"
+      ],
+      [
+        "CSS",
+        "css3"
+      ],
+      [
+        "JavaScript",
+        "javascript"
+      ]
+    ],
+    "tools": [
+      [
+        "React",
+        "react"
+      ],
+      [
+        "Vite",
+        "vite"
+      ],
+      [
+        "Linux",
+        "linux"
+      ],
+      [
+        "Git",
+        "git"
+      ],
+      [
+        "Neovim",
+        "neovim"
+      ],
+      [
+        "GitHub Actions",
+        "githubactions"
+      ]
+    ]
+  },
+  "music": {
+    "service": "YouTube Music",
+    "lastfm_user": "threeletterssk_",
+    "fallback": "nothing playing right now"
+  },
+  "contributing": "Want to help out? Fork the repo, make a branch, and send me a pull request. Small fixes are totally welcome. If you're not sure where to start, open an issue and say hi.",
+  "links": {
+    "Email": "mailto:you@example.com",
+    "Website": "https://example.com",
+    "X": "https://x.com/yourhandle"
+  },
+  "footer": "always on the move.",
+  "projects_source": {
+    "mode": "pinned",
+    "max": 3
+  },
+  "projects_fallback": [
+    {
+      "repo": "PROJECT_ONE",
+      "description": "a quick line on what it does and why I made it"
+    },
+    {
+      "repo": "PROJECT_TWO",
+      "description": "a quick line on what it does and why I made it"
+    },
+    {
+      "repo": "PROJECT_THREE",
+      "description": "a quick line on what it does and why I made it"
+    }
+  ]
+}
