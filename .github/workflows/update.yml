@@ -4,7 +4,7 @@ on:
   push:
     paths: [profile.json, build.py, icons.json]
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/2 * * * *"
   workflow_dispatch:
 
 permissions:
