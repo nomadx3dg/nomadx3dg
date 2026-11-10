@@ -43,7 +43,7 @@ Want to help out? Fork the repo, make a branch, and send me a pull request. Smal
 
 <img src="assets/h-contact.svg" width="100%" alt="Contact" />
 
-[Email](mailto:moqxcz@gmail.com) / [Website](https://nomadx3dg.vercel.app) / [X](https://x.com)
+[Email](mailto:moqxcz@gmail.com) / [Website](https://nomadx3dg.vercel.app) / [TikTok](https://www.tiktok.com/@nomadx3dg)
 
 <img src="assets/divider.svg" width="100%" alt="" />
 
