@@ -19,7 +19,9 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <img src="assets/h-projects.svg" width="100%" alt="Projects" />
 
-<a href="https://github.com/nomadx3dg/cubicle"><img src="assets/pin-1.svg" width="480" alt="cubicle" /></a>
+<a href="https://github.com/nomadx3dg/PROJECT_ONE"><img src="assets/pin-1.svg" width="480" alt="PROJECT_ONE" /></a>
+<a href="https://github.com/nomadx3dg/PROJECT_TWO"><img src="assets/pin-2.svg" width="480" alt="PROJECT_TWO" /></a>
+<a href="https://github.com/nomadx3dg/PROJECT_THREE"><img src="assets/pin-3.svg" width="480" alt="PROJECT_THREE" /></a>
 
 <img src="assets/h-stack.svg" width="100%" alt="Stack" />
 
@@ -29,7 +31,6 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 **nothing playing right now**
 
-<sub>via YouTube Music</sub>
 
 <img src="assets/h-github.svg" width="100%" alt="GitHub" />
 
@@ -43,7 +44,7 @@ Want to help out? Fork the repo, make a branch, and send me a pull request. Smal
 
 <img src="assets/h-contact.svg" width="100%" alt="Contact" />
 
-[Email](mailto:moqxcz@gmail.com) / [Website](https://nomadx3dg.vercel.app) / [TikTok](https://www.tiktok.com/@nomadx3dg)
+<a href="mailto:moqxcz@gmail.com"><img src="assets/social-email.svg" width="56" height="56" alt="Email" /></a>&nbsp;&nbsp;<a href="https://nomadx3dg.vercel.app"><img src="assets/social-website.svg" width="56" height="56" alt="Website" /></a>&nbsp;&nbsp;<a href="https://www.tiktok.com/@nomadx3dg"><img src="assets/social-tiktok.svg" width="56" height="56" alt="TikTok" /></a>
 
 <img src="assets/divider.svg" width="100%" alt="" />
 

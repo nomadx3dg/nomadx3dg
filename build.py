@@ -234,6 +234,39 @@ def divider_svg():
             f'<path d="{wobble(448, 800)}" stroke="{INK}" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>')
 
 
+# ---------------- social icons ----------------
+EMAIL = (f'<g fill="none" stroke="{INK}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
+         '<rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M3 6.5l9 6.8 9-6.8"/></g>')
+GLOBE = (f'<g fill="none" stroke="{INK}" stroke-width="1.8" stroke-linecap="round">'
+         '<circle cx="12" cy="12" r="9.5"/><ellipse cx="12" cy="12" rx="4.2" ry="9.5"/>'
+         '<path d="M2.5 12h19M4 7.2h16M4 16.8h16"/></g>')
+
+
+def social_slug(name):
+    return "".join(ch for ch in name.lower() if ch.isalnum())
+
+
+def social_svg(name):
+    icons = json.loads((root / "icons.json").read_text())
+    slug, size = social_slug(name), 56
+    if slug == "email":
+        glyph = EMAIL
+    elif slug in ("website", "site", "web"):
+        glyph = GLOBE
+    elif slug in icons:
+        glyph = f'<path d="{icons[slug]}" fill="{INK}"/>'
+    else:
+        glyph = None
+    inner = (f'<g transform="translate(14,14) scale({28/24})"><title>{escape(name)}</title>{glyph}</g>'
+             if glyph else text(28, 33, name[:2].upper(), 16, INK, "700", "middle"))
+    style = f"<style>{MONO_CSS}</style>" if not glyph else ""
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">'
+            f'{style}{GRAIN}{paper(size, size)}'
+            f'<rect x="1" y="1" width="{size-2}" height="{size-2}" rx="2" fill="none" stroke="{INK}" stroke-width="1.5"/>'
+            f'<rect x="4.5" y="4.5" width="{size-9}" height="{size-9}" rx="1" fill="none" stroke="{INK}" stroke-width=".5"/>'
+            f'{inner}</svg>')
+
+
 # ---------------- music ----------------
 def now_playing():
     m = p["music"]
@@ -284,7 +317,13 @@ for i, r in enumerate(projects):
 track, track_url = now_playing()
 track_md = f"**{track}**" + (f"  \n[Open on Last.fm]({track_url})" if track_url else "")
 s = p["status"]
-links = " / ".join(f"[{k}]({v})" for k, v in p["links"].items())
+for old in A.glob("social-*.svg"):
+    old.unlink()
+tiles = []
+for name, url in p["links"].items():
+    A.joinpath(f"social-{social_slug(name)}.svg").write_text(social_svg(name))
+    tiles.append(f'<a href="{url}"><img src="assets/social-{social_slug(name)}.svg" width="56" height="56" alt="{name}" /></a>')
+links = "&nbsp;&nbsp;".join(tiles)
 
 readme = f"""<div align="center">
 
@@ -317,7 +356,6 @@ readme = f"""<div align="center">
 
 {track_md}
 
-<sub>via {p['music']['service']}</sub>
 
 {img('github', 'GitHub')}
 
