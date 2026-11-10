@@ -12,12 +12,10 @@
 
 I'm Nomad. I make small, slightly weird tools and a lot of half-finished experiments, usually late at night. If something annoys me enough, I'll build my own fix for it. I'm always up for teaming up on something fun.
 
-```
-working on   the thing I can't stop thinking about (edit me)
-learning     something new, as usual (edit me)
-ask me about whatever you're curious about (edit me)
-based in     all over, for now
-```
+**working on:** the thing I can't stop thinking about (edit me)<br/>
+**learning:** something new, as usual (edit me)<br/>
+**ask me about:** whatever you're curious about (edit me)<br/>
+**based in:** all over, for now
 
 <img src="assets/h-projects.svg" width="100%" alt="Projects" />
 
@@ -27,13 +25,11 @@ based in     all over, for now
 
 <img src="assets/h-stack.svg" width="100%" alt="Stack" />
 
-<img src="assets/stack.svg" width="100%" alt="Languages and tools" />
+<img src="assets/stack.svg" width="480" alt="Languages and tools" />
 
 <img src="assets/h-listening.svg" width="100%" alt="Listening" />
 
-```
-nothing playing right now
-```
+**nothing playing right now**
 
 <sub>via YouTube Music</sub>
 
