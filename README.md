@@ -19,9 +19,7 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <img src="assets/h-projects.svg" width="100%" alt="Projects" />
 
-<a href="https://github.com/nomadx3dg/PROJECT_ONE"><img src="assets/pin-1.svg" width="480" alt="PROJECT_ONE" /></a>
-<a href="https://github.com/nomadx3dg/PROJECT_TWO"><img src="assets/pin-2.svg" width="480" alt="PROJECT_TWO" /></a>
-<a href="https://github.com/nomadx3dg/PROJECT_THREE"><img src="assets/pin-3.svg" width="480" alt="PROJECT_THREE" /></a>
+<a href="https://github.com/nomadx3dg/cubicle"><img src="assets/pin-1.svg" width="480" alt="cubicle" /></a>
 
 <img src="assets/h-stack.svg" width="100%" alt="Stack" />
 
