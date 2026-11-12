@@ -27,8 +27,8 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <img src="assets/h-listening.svg" width="100%" alt="Listening" />
 
-**last played: Passion Mango - Spinning Out**  
-[Open on Last.fm](https://www.last.fm/music/Passion+Mango/_/Spinning+Out)
+**last played: Aerodynamics in Formula 1 - F1 Explained**  
+[Open on Last.fm](https://www.last.fm/music/Aerodynamics+in+Formula+1/_/F1+Explained)
 
 
 <img src="assets/h-github.svg" width="100%" alt="GitHub" />
