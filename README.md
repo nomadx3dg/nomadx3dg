@@ -20,6 +20,7 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 <img src="assets/h-projects.svg" width="100%" alt="Projects" />
 
 <a href="https://github.com/nomadx3dg/cubicle"><img src="assets/pin-1.svg" width="480" alt="cubicle" /></a>
+<a href="https://github.com/nomadx3dg/echostar"><img src="assets/pin-2.svg" width="480" alt="echostar" /></a>
 
 <img src="assets/h-stack.svg" width="100%" alt="Stack" />
 
