@@ -28,8 +28,8 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <img src="assets/h-listening.svg" width="100%" alt="Listening" />
 
-**last played: Sabrina Carpenter - On My Way**  
-[Open on Last.fm](https://www.last.fm/music/Sabrina+Carpenter/_/On+My+Way)
+**last played: NEFFEX - NEFFEX - Cold ❄️[Copyright Free] No.60**  
+[Open on Last.fm](https://www.last.fm/music/NEFFEX/_/NEFFEX+-+Cold+%E2%9D%84%EF%B8%8F%5BCopyright+Free%5D+No.60)
 
 
 <img src="assets/h-github.svg" width="100%" alt="GitHub" />
