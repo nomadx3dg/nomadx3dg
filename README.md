@@ -28,8 +28,8 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <img src="assets/h-listening.svg" width="100%" alt="Listening" />
 
-**last played: NEFFEX - NEFFEX - Cold ❄️[Copyright Free] No.60**  
-[Open on Last.fm](https://www.last.fm/music/NEFFEX/_/NEFFEX+-+Cold+%E2%9D%84%EF%B8%8F%5BCopyright+Free%5D+No.60)
+**last played: Sensit Haptics - Gaming Seat Review**  
+[Open on Last.fm](https://www.last.fm/music/Sensit+Haptics/_/Gaming+Seat+Review)
 
 
 <img src="assets/h-github.svg" width="100%" alt="GitHub" />
