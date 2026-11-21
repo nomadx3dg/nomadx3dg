@@ -1,13 +1,23 @@
 #!/usr/bin/env python3
-"""Builds README.md plus every custom graphic from profile.json.
+"""Builds README.md and every custom graphic from profile.json.
 
-Paper theme: warm paper background, ink-black text, typewriter fonts.
-Everything is drawn locally as SVG (fonts embedded), so nothing depends on
-third-party image services. GitHub data comes from the API (GITHUB_TOKEN),
-Last.fm from LASTFM_API_KEY; missing data degrades to placeholders.
-Standard library only.
+Look: zine / poster. Paper (or charcoal) cards with a hard offset shadow, one
+spray-paint accent colour, system monospace type. Every graphic is generated
+twice (assets/light, assets/dark) and swapped with <picture>, so it follows
+the viewer's GitHub theme.
+
+Nothing depends on third-party image services and no fonts are embedded.
+GitHub data comes from the API (GITHUB_TOKEN), Last.fm from LASTFM_API_KEY.
+If an API call fails, the previous graphic is kept instead of being replaced
+by a placeholder. Standard library only.
 """
-import base64, json, os, random, textwrap, urllib.parse, urllib.request
+import html
+import json
+import os
+import random
+import textwrap
+import urllib.parse
+import urllib.request
 from collections import Counter
 from pathlib import Path
 from xml.sax.saxutils import escape
@@ -15,52 +25,70 @@ from xml.sax.saxutils import escape
 root = Path(__file__).parent
 p = json.loads((root / "profile.json").read_text())
 gh = p["github_username"]
-W = 480
-PAPER, INK, MUTED, FAINT = "#f4efe6", "#1b1a17", "#6f6a5e", "#d9d2c3"
+
+THEMES = {
+    "light": dict(bg="#f4efe6", ink="#1b1a17", muted="#6f6a5e", faint="#d9d2c3", accent="#e8431f"),
+    "dark": dict(bg="#171614", ink="#efe9dc", muted="#a09a8c", faint="#38352f", accent="#ff5a36"),
+}
+FONT = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace"
+SH = 6        # hard shadow offset on cards
+FULL = 820    # full-width graphic
+HALF = 400    # half-width graphic (two per row)
 
 
-# ---------------- fonts & shared svg bits ----------------
-def b64(name):
-    return base64.b64encode((root / "assets/fonts" / name).read_bytes()).decode()
+# ---------------- svg primitives ----------------
+def rgb(hex_):
+    h = hex_.lstrip("#")
+    return [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
 
 
-def face(family, name, weight=400):
-    return (f"@font-face{{font-family:'{family}';font-weight:{weight};"
-            f"src:url(data:font/woff2;base64,{b64(name)}) format('woff2');}}")
+def txt(t, x, y, s, size=15, color="ink", weight=400, anchor="start", extra=""):
+    return (f'<text x="{x}" y="{y}" font-family="{FONT}" font-size="{size}" font-weight="{weight}" '
+            f'fill="{t.get(color, color)}" text-anchor="{anchor}" {extra}>{escape(str(s))}</text>')
 
 
-MONO_CSS = face("CP", "courier-400.woff2", 400) + face("CP", "courier-700.woff2", 700)
-HEAD_CSS = face("Elite", "elite-caps.woff2")
-MONO = "'CP','Courier New',Courier,monospace"
-GRAIN = ('<defs><filter id="g" x="0" y="0" width="100%" height="100%">'
-         '<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>'
-         '<feColorMatrix values="0 0 0 0 .1  0 0 0 0 .1  0 0 0 0 .1  0 0 0 .10 0"/></filter></defs>')
+def svg(w, h, inner, title="", defs=""):
+    t = f"<title>{escape(title)}</title>" if title else ""
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img">'
+            f'{t}{defs}{inner}</svg>')
 
 
-def paper(w, h):
-    return f'<rect width="{w}" height="{h}" fill="{PAPER}"/><rect width="{w}" height="{h}" filter="url(#g)"/>'
+def grain(t):
+    r, g, b = rgb(t["ink"])
+    return ('<defs><filter id="g" x="0" y="0" width="100%" height="100%">'
+            '<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>'
+            f'<feColorMatrix values="0 0 0 0 {r:.3f}  0 0 0 0 {g:.3f}  0 0 0 0 {b:.3f}  0 0 0 .09 0"/>'
+            '</filter></defs>')
 
 
-def text(x, y, s, size=15, fill=INK, weight="400", anchor="start"):
-    return (f'<text x="{x}" y="{y}" font-family="{MONO}" font-size="{size}" fill="{fill}" '
-            f'font-weight="{weight}" text-anchor="{anchor}">{escape(str(s))}</text>')
+def card(t, w, content_h, body, title="", shadow=SH):
+    """A card with a hard offset shadow. Body coordinates start at the card's top-left."""
+    h = content_h + shadow + 2
+    cw, ch = w - shadow - 2, content_h
+    inner = (f'<rect x="{1 + shadow}" y="{1 + shadow}" width="{cw}" height="{ch}" fill="{t["ink"]}"/>'
+             f'<rect x="1" y="1" width="{cw}" height="{ch}" fill="{t["bg"]}" stroke="{t["ink"]}" stroke-width="2"/>'
+             f'<rect x="1" y="1" width="{cw}" height="{ch}" filter="url(#g)"/>'
+             f'<g transform="translate(1,1)">{body}</g>')
+    return svg(w, h, inner, title, grain(t))
 
 
-def card(h, body):
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">'
-            f'<style>{MONO_CSS}</style>{GRAIN}{paper(W, h)}'
-            f'<rect x="1" y="1" width="{W-2}" height="{h-2}" rx="2" fill="none" stroke="{INK}" stroke-width="1.5"/>'
-            f'<rect x="5" y="5" width="{W-10}" height="{h-10}" rx="1" fill="none" stroke="{INK}" stroke-width=".5"/>'
-            f'{body}</svg>')
+def dashed(t, x1, x2, y):
+    return f'<line x1="{x1}" y1="{y}" x2="{x2}" y2="{y}" stroke="{t["faint"]}" stroke-width="1.5" stroke-dasharray="2 4"/>'
+
+
+def clip(s, n):
+    s = str(s)
+    return s if len(s) <= n else s[: n - 3].rstrip() + "..."
 
 
 # ---------------- GitHub data ----------------
-Q_PINNED = ("query($u:String!){user(login:$u){pinnedItems(first:6,types:REPOSITORY)"
-            "{nodes{... on Repository{name description stargazerCount forkCount primaryLanguage{name}}}}}}")
 Q_REPOS = ("query($u:String!){user(login:$u){followers{totalCount} "
            "repositories(ownerAffiliation:OWNER,isFork:false,first:100){totalCount nodes{stargazerCount primaryLanguage{name}}}}}")
-Q_CONTRIB = ("query($u:String!){user(login:$u){contributionsCollection"
-             "{totalCommitContributions totalPullRequestContributions totalIssueContributions}}}")
+Q_CONTRIB = ("query($u:String!){user(login:$u){contributionsCollection{totalCommitContributions "
+             "totalPullRequestContributions totalIssueContributions contributionCalendar{totalContributions "
+             "weeks{contributionDays{contributionCount date weekday}}}}}}")
+Q_PINNED = ("query($u:String!){user(login:$u){pinnedItems(first:6,types:REPOSITORY)"
+            "{nodes{... on Repository{name description stargazerCount forkCount primaryLanguage{name}}}}}}")
 TOKEN = os.environ.get("GITHUB_TOKEN")
 
 
@@ -98,8 +126,8 @@ def rest(path):
 
 
 def collect():
-    d = {"followers": None, "repo_count": None, "repos": None, "commits": None,
-         "prs": None, "issues": None, "pins": None}
+    d = dict(followers=None, repo_count=None, repos=None, commits=None, prs=None,
+             issues=None, calendar=None, pins=None)
     u = gql("repos", Q_REPOS)
     if u:
         d["followers"] = u["followers"]["totalCount"]
@@ -118,9 +146,12 @@ def collect():
     u = gql("contributions", Q_CONTRIB)
     if u:
         c = u["contributionsCollection"]
-        d["commits"], d["prs"], d["issues"] = (c["totalCommitContributions"],
-                                              c["totalPullRequestContributions"],
-                                              c["totalIssueContributions"])
+        d["commits"] = c["totalCommitContributions"]
+        d["prs"] = c["totalPullRequestContributions"]
+        d["issues"] = c["totalIssueContributions"]
+        cal = c["contributionCalendar"]
+        d["calendar"] = dict(total=cal["totalContributions"],
+                             weeks=[w["contributionDays"] for w in cal["weeks"]])
     u = gql("pinned", Q_PINNED)
     if u:
         d["pins"] = [{"repo": n["name"], "description": n["description"] or "no description yet",
@@ -130,256 +161,388 @@ def collect():
     return d
 
 
+def streaks(calendar):
+    counts = [day["contributionCount"] for week in calendar["weeks"] for day in week]
+    best = run = 0
+    for c in counts:
+        run = run + 1 if c else 0
+        best = max(best, run)
+    cur, i = 0, len(counts) - 1
+    if i >= 0 and counts[i] == 0:  # today may not have happened yet
+        i -= 1
+    while i >= 0 and counts[i]:
+        cur += 1
+        i -= 1
+    return cur, best
+
+
 # ---------------- cards ----------------
-def stats_svg(d):
-    stars = sum(x[0] for x in d["repos"]) if d["repos"] is not None else None
-    rows = [("repositories", d["repo_count"]), ("stars earned", stars),
-            ("commits, past year", d["commits"]), ("pull requests", d["prs"]),
-            ("issues", d["issues"]), ("followers", d["followers"])]
-    b = text(24, 36, "STATS", 12, MUTED, "700")
+def status_card(t):
+    s = p["status"]
+    rows = [("working on", s["working_on"]), ("learning", s["learning"]),
+            ("ask me about", s["ask_me_about"]), ("based in", s["based_in"])]
+    cw = FULL - SH - 2
+    b = f'<rect x="0" y="0" width="{cw}" height="32" fill="{t["ink"]}"/>'
+    for i, col in enumerate((t["accent"], t["muted"], t["muted"])):
+        b += f'<circle cx="{20 + i * 16}" cy="16" r="4.5" fill="{col}"/>'
+    b += txt(t, 82, 21, f"~/{p['github_username']}", 13, t["bg"], 700)
     for i, (k, v) in enumerate(rows):
-        y = 68 + i * 28
-        b += text(24, y, k) + text(W - 24, y, "--" if v is None else v, 15, INK, "700", "end")
-        b += f'<line x1="24" y1="{y+8}" x2="{W-24}" y2="{y+8}" stroke="{FAINT}" stroke-dasharray="2 4"/>'
-    return card(60 + len(rows) * 28 + 8, b)
+        y = 64 + i * 30
+        b += txt(t, 24, y, k, 14, "muted") + txt(t, 190, y, clip(v, 64), 15, "ink", 700)
+        if i < len(rows) - 1:
+            b += dashed(t, 24, cw - 24, y + 10)
+    return card(t, FULL, 64 + (len(rows) - 1) * 30 + 24, b, "Status")
 
 
-def langs_svg(d):
-    b = text(24, 36, "TOP LANGUAGES", 12, MUTED, "700")
+def pin_card(t, r):
+    cw = HALF - SH - 2
+    b = f'<rect x="24" y="24" width="12" height="12" fill="{t["accent"]}"/>'
+    b += txt(t, 46, 36, clip(r["repo"], 26), 18, "ink", 700)
+    for i, line in enumerate(textwrap.wrap(r["description"], 40)[:3]):
+        b += txt(t, 24, 68 + i * 20, line, 14, "muted")
+    b += dashed(t, 24, cw - 24, 124)
+    if r.get("language"):
+        b += f'<circle cx="30" cy="146" r="5" fill="{t["accent"]}"/>' + txt(t, 42, 151, clip(r["language"], 14), 13, "muted")
+    meta = "  ".join(x for x in (f'stars {r["stars"]}' if r.get("stars") is not None else "",
+                                 f'forks {r["forks"]}' if r.get("forks") is not None else "") if x)
+    b += txt(t, cw - 24, 151, meta, 13, "muted", anchor="end")
+    return card(t, HALF, 166, b, r["repo"])
+
+
+def stack_card(t):
+    icons = json.loads((root / "icons.json").read_text())
+    cw = FULL - SH - 2
+    size, pitch = 32, 84
+    b = ""
+    for row, (label, group) in enumerate((("LANGUAGES", p["skills"]["languages"]), ("TOOLS", p["skills"]["tools"]))):
+        top = 34 + row * 104
+        b += txt(t, 24, top, label, 12, "muted", 700, extra='letter-spacing="2"')
+        b += dashed(t, 24 + len(label) * 9 + 8, cw - 24, top - 4)
+        for i, (name, slug) in enumerate(group):
+            x, y = 28 + i * pitch, top + 14
+            if slug in icons:
+                b += (f'<g transform="translate({x},{y}) scale({size / 24})"><title>{escape(name)}</title>'
+                      f'<path d="{icons[slug]}" fill="{t["ink"]}"/></g>')
+            else:
+                b += (f'<rect x="{x}" y="{y}" width="{size}" height="{size}" rx="3" fill="none" '
+                      f'stroke="{t["ink"]}" stroke-width="2"/>' + txt(t, x + size / 2, y + 21, name[:3].upper(), 12, "ink", 700, "middle"))
+            b += txt(t, x + size / 2, y + size + 20, name, 11, "muted", anchor="middle")
+    return card(t, FULL, 240, b, "Languages and tools")
+
+
+def stats_card(t, d):
+    stars = sum(x[0] for x in d["repos"]) if d["repos"] is not None else None
+    rows = [("repositories", d["repo_count"]), ("stars earned", stars), ("commits, past year", d["commits"]),
+            ("pull requests", d["prs"]), ("issues", d["issues"]), ("followers", d["followers"])]
+    cw = HALF - SH - 2
+    b = txt(t, 24, 36, "STATS", 12, "muted", 700, extra='letter-spacing="2"')
+    for i, (k, v) in enumerate(rows):
+        y = 68 + i * 30
+        b += txt(t, 24, y, k, 14) + txt(t, cw - 24, y, "--" if v is None else v, 15, "ink", 700, "end")
+        b += dashed(t, 24, cw - 24, y + 8)
+    return card(t, HALF, 244, b, "GitHub stats")
+
+
+def langs_card(t, d):
+    cw = HALF - SH - 2
+    b = txt(t, 24, 36, "TOP LANGUAGES", 12, "muted", 700, extra='letter-spacing="2"')
     cnt = Counter(l for _, l in (d["repos"] or []) if l)
     tot = sum(cnt.values())
     langs = [(k, v * 100 / tot) for k, v in cnt.most_common(6)] if tot else []
     if not langs:
-        return card(84, b + text(24, 62, "no language data yet", 14, MUTED))
-    shades = ["#1b1a17", "#3a3833", "#58554d", "#77736a", "#99948a", "#b9b3a6"]
+        b += txt(t, 24, 72, "no language data yet", 14, "muted")
     for i, (k, pct) in enumerate(langs):
         y = 68 + i * 30
-        b += text(24, y, k, 14) + text(W - 24, y, f"{pct:.0f}%", 14, MUTED, "400", "end")
-        b += f'<rect x="24" y="{y+7}" width="{W-48}" height="5" fill="{FAINT}"/>'
-        b += f'<rect x="24" y="{y+7}" width="{max(4,(W-48)*pct/100):.1f}" height="5" fill="{shades[i]}"/>'
-    return card(60 + len(langs) * 30 + 8, b)
+        b += txt(t, 24, y, k, 14) + txt(t, cw - 24, y, f"{pct:.0f}%", 14, "muted", anchor="end")
+        b += f'<rect x="24" y="{y + 7}" width="{cw - 48}" height="6" fill="{t["faint"]}"/>'
+        b += (f'<rect x="24" y="{y + 7}" width="{max(4, (cw - 48) * pct / 100):.1f}" height="6" '
+              f'fill="{t["accent"]}" fill-opacity="{max(.3, 1 - i * .15):.2f}"/>')
+    return card(t, HALF, 244, b, "Top languages")
 
 
-def pin_svg(r):
-    b = text(24, 38, r["repo"], 17, INK, "700")
-    for i, line in enumerate(textwrap.wrap(r["description"], 46)[:2]):
-        b += text(24, 66 + i * 20, line, 14, MUTED)
-    meta = "   ".join(x for x in (r.get("language"),
-                                  f'stars {r["stars"]}' if r.get("stars") is not None else None,
-                                  f'forks {r["forks"]}' if r.get("forks") is not None else None) if x)
-    b += f'<line x1="24" y1="96" x2="{W-24}" y2="96" stroke="{FAINT}" stroke-dasharray="2 4"/>'
-    b += text(24, 118, meta, 13, MUTED)
-    return card(134, b)
+def heatmap_card(t, d):
+    cal = d["calendar"]
+    cw = FULL - SH - 2
+    weeks = [w for w in cal["weeks"] if w]
+    cur, best = streaks(cal)
+    flat = [day["contributionCount"] for w in weeks for day in w]
+    peak = max(flat + [1])
+    cell, pitch, y0 = 11, 14, 74
+    x0 = (cw - len(weeks) * pitch + (pitch - cell)) / 2
+    b = txt(t, 24, 36, "CONTRIBUTIONS", 12, "muted", 700, extra='letter-spacing="2"')
+    b += txt(t, cw - 24, 36, f'{cal["total"]} in the past year   streak {cur}d   best {best}d', 13, "muted", anchor="end")
+    months = "JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC".split()
+    last_m, last_x = None, -99
+    for i, w in enumerate(weeks):
+        x = x0 + i * pitch
+        m = int(w[0]["date"][5:7])
+        if m != last_m and x - last_x >= 36:
+            b += txt(t, f"{x:.1f}", 62, months[m - 1], 10, "muted")
+            last_x = x
+        last_m = m
+        for day in w:
+            c = day["contributionCount"]
+            lvl = 0 if c == 0 else min(4, max(1, -(-4 * c // peak)))
+            fill = t["faint"] if lvl == 0 else t["accent"]
+            op = (1, .28, .5, .75, 1)[lvl]
+            b += (f'<rect x="{x:.1f}" y="{y0 + day["weekday"] * pitch}" width="{cell}" height="{cell}" '
+                  f'fill="{fill}" fill-opacity="{op}"><title>{day["date"]}: {c}</title></rect>')
+    ly = y0 + 7 * pitch + 14
+    lx = cw - 24
+    b += txt(t, lx, ly + 9, "more", 10, "muted", anchor="end")
+    for i, op in enumerate((1, .75, .5, .28)):
+        b += f'<rect x="{lx - 40 - i * 15}" y="{ly}" width="{cell}" height="{cell}" fill="{t["accent"]}" fill-opacity="{op}"/>'
+    b += f'<rect x="{lx - 40 - 4 * 15}" y="{ly}" width="{cell}" height="{cell}" fill="{t["faint"]}"/>'
+    b += txt(t, lx - 40 - 4 * 15 - 8, ly + 9, "less", 10, "muted", anchor="end")
+    return card(t, FULL, ly + cell + 22, b, "Contribution activity, past year")
 
 
-def stack_svg():
-    icons = json.loads((root / "icons.json").read_text())
-    size, pitch = 30, 48
-    body = ""
-    for row, group in enumerate((p["skills"]["languages"], p["skills"]["tools"])):
-        y = 18 + row * 44
-        for i, (name, slug) in enumerate(group):
-            x = 22 + i * pitch
-            if slug in icons:
-                body += (f'<g transform="translate({x},{y}) scale({size/24})"><title>{escape(name)}</title>'
-                         f'<path d="{icons[slug]}" fill="{INK}"/></g>')
-            else:
-                body += text(x + size / 2, y + 21, name[:4].upper(), 13, INK, "700", "middle")
-    return card(112, body)
+def now_playing_card(t, label, track, playing):
+    cw = FULL - SH - 2
+    base = 60
+    heights = [[10, 30, 16, 26, 10], [24, 12, 30, 14, 24], [16, 26, 10, 30, 16],
+               [28, 14, 24, 10, 28], [12, 24, 30, 18, 12]]
+    durs = [0.9, 1.1, 0.8, 1.2, 1.0]
+    b = ""
+    for i, hs in enumerate(heights):
+        x = 28 + i * 12
+        if playing:
+            ys = ";".join(str(base - h) for h in hs)
+            b += (f'<rect x="{x}" y="{base - hs[0]}" width="7" height="{hs[0]}" fill="{t["accent"]}">'
+                  f'<animate attributeName="height" values="{";".join(map(str, hs))}" dur="{durs[i]}s" repeatCount="indefinite"/>'
+                  f'<animate attributeName="y" values="{ys}" dur="{durs[i]}s" repeatCount="indefinite"/></rect>')
+        else:
+            h = (14, 26, 18, 30, 12)[i]
+            b += f'<rect x="{x}" y="{base - h}" width="7" height="{h}" fill="{t["muted"]}" fill-opacity=".55"/>'
+    b += txt(t, 100, 38, label.upper(), 12, "accent" if playing else "muted", 700, extra='letter-spacing="2"')
+    b += txt(t, 100, 64, clip(track, 58), 18, "ink", 700)
+    return card(t, FULL, 88, b, f"{label}: {track}")
 
 
-# ---------------- headings, tagline, divider ----------------
-def heading_svg(num, title):
-    w, h = 820, 84
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}">'
-            f'<style>{MONO_CSS}{HEAD_CSS}</style>{GRAIN}{paper(w, h)}'
-            f'<circle cx="34" cy="38" r="19" fill="none" stroke="{INK}" stroke-width="1.5"/>'
-            f'<circle cx="34" cy="38" r="15.5" fill="none" stroke="{INK}" stroke-width=".6"/>'
-            f'<text x="34" y="43" font-family="{MONO}" font-size="14" font-weight="700" fill="{INK}" text-anchor="middle">{num:02d}</text>'
-            f'<g transform="rotate(-0.6 70 40)">'
-            f'<text x="71" y="55" font-family="Elite,{MONO}" font-size="40" fill="{INK}" opacity=".28" letter-spacing="3">{escape(title)}</text>'
-            f'<text x="70" y="54" font-family="Elite,{MONO}" font-size="40" fill="{INK}" letter-spacing="3">{escape(title)}</text></g>'
-            f'<line x1="8" y1="73" x2="{w-8}" y2="73" stroke="{INK}" stroke-width="2"/>'
-            f'<line x1="8" y1="78" x2="{w-8}" y2="78" stroke="{INK}" stroke-width=".8"/></svg>')
+# ---------------- headings, tagline, divider, socials ----------------
+def heading_svg(t, num, title):
+    w, h = FULL, 48
+    n = len(title)
+    tw = n * 19
+    inner = (f'<rect x="2" y="6" width="36" height="36" fill="{t["accent"]}"/>'
+             + txt(t, 20, 31, f"{num:02d}", 16, t["bg"], 700, "middle")
+             + txt(t, 54, 33, title, 26, "ink", 700, extra=f'textLength="{tw}" lengthAdjust="spacing"')
+             + f'<line x1="{54 + tw + 16}" y1="24" x2="{w - 10}" y2="24" stroke="{t["ink"]}" stroke-width="2"/>'
+             + f'<rect x="{w - 12}" y="20" width="8" height="8" fill="{t["accent"]}"/>')
+    return svg(w, h, inner, title)
 
 
-def tagline_svg(txt):
-    w, h, fs = 820, 64, 24
+def tagline_svg(t, s):
+    w, h, fs = FULL, 56, 22
     cw = 0.6 * fs
-    n = len(txt)
+    n = len(s)
     tw = n * cw
     x0 = (w - tw) / 2
-    vals = ";".join(f"{cw*k:.1f}" for k in range(n + 1))
-    keys = ";".join(f"{k/n:.3f}" for k in range(n + 1))
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}">'
-            f'<style>{MONO_CSS}</style>{GRAIN}{paper(w, h)}'
-            f'<clipPath id="c"><rect x="{x0:.1f}" y="0" height="{h}" width="0">'
-            f'<animate attributeName="width" dur="2.6s" begin="0.3s" fill="freeze" calcMode="discrete" values="{vals}" keyTimes="{keys}"/></rect></clipPath>'
-            f'<text x="{x0:.1f}" y="40" font-family="{MONO}" font-size="{fs}" fill="{INK}" clip-path="url(#c)">{escape(txt)}</text>'
-            f'<rect x="{x0+tw+4:.1f}" y="18" width="13" height="26" fill="{INK}">'
-            f'<animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></rect></svg>')
+    vals = ";".join(f"{cw * k:.1f}" for k in range(n + 1))
+    keys = ";".join(f"{k / n:.3f}" for k in range(n + 1))
+    inner = (f'<clipPath id="c"><rect x="{x0:.1f}" y="0" height="{h}" width="0">'
+             f'<animate attributeName="width" dur="2.4s" begin="0.3s" fill="freeze" calcMode="discrete" values="{vals}" keyTimes="{keys}"/></rect></clipPath>'
+             + txt(t, f"{x0:.1f}", 36, s, fs, "ink", 400, extra=f'textLength="{tw:.1f}" lengthAdjust="spacing" clip-path="url(#c)"')
+             + f'<rect x="{x0 + tw + 4:.1f}" y="14" width="12" height="26" fill="{t["accent"]}">'
+               '<animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></rect>')
+    return svg(w, h, inner, s)
 
 
-def divider_svg():
+def divider_svg(t):
     rnd = random.Random(11)
-    w, h = 820, 36
+    w, h = FULL, 28
 
     def wobble(x0, x1):
-        pts = [(x, 18 + rnd.uniform(-1.3, 1.3)) for x in range(x0, x1 + 1, 14)]
+        pts = [(x, 14 + rnd.uniform(-1.4, 1.4)) for x in range(x0, x1 + 1, 14)]
         return "M" + " L".join(f"{x},{y:.1f}" for x, y in pts)
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}">'
-            f'{GRAIN}{paper(w, h)}'
-            f'<path d="{wobble(20, 372)}" stroke="{INK}" stroke-width="1.6" fill="none" stroke-linecap="round"/>'
-            f'<circle cx="394" cy="18" r="2.4" fill="{INK}"/><circle cx="410" cy="18" r="2.4" fill="{INK}"/><circle cx="426" cy="18" r="2.4" fill="{INK}"/>'
-            f'<path d="{wobble(448, 800)}" stroke="{INK}" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>')
+    inner = (f'<path d="{wobble(10, 372)}" stroke="{t["ink"]}" stroke-width="2" fill="none" stroke-linecap="round"/>'
+             + "".join(f'<circle cx="{394 + i * 16}" cy="14" r="2.6" fill="{t["accent"]}"/>' for i in range(3))
+             + f'<path d="{wobble(448, 810)}" stroke="{t["ink"]}" stroke-width="2" fill="none" stroke-linecap="round"/>')
+    return svg(w, h, inner)
 
 
-# ---------------- social icons ----------------
-EMAIL = (f'<g fill="none" stroke="{INK}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
-         '<rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M3 6.5l9 6.8 9-6.8"/></g>')
-GLOBE = (f'<g fill="none" stroke="{INK}" stroke-width="1.8" stroke-linecap="round">'
-         '<circle cx="12" cy="12" r="9.5"/><ellipse cx="12" cy="12" rx="4.2" ry="9.5"/>'
-         '<path d="M2.5 12h19M4 7.2h16M4 16.8h16"/></g>')
+def email_glyph(t):
+    return (f'<g fill="none" stroke="{t["ink"]}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
+            '<rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M3 6.5l9 6.8 9-6.8"/></g>')
+
+
+def globe_glyph(t):
+    return (f'<g fill="none" stroke="{t["ink"]}" stroke-width="1.8" stroke-linecap="round">'
+            '<circle cx="12" cy="12" r="9.5"/><ellipse cx="12" cy="12" rx="4.2" ry="9.5"/>'
+            '<path d="M2.5 12h19M4 7.2h16M4 16.8h16"/></g>')
 
 
 def social_slug(name):
     return "".join(ch for ch in name.lower() if ch.isalnum())
 
 
-def social_svg(name):
+def social_width(name):
+    return int(16 + 22 + 10 + len(name) * 9.5 + 18 + 4 + 2)
+
+
+def social_svg(t, name):
     icons = json.loads((root / "icons.json").read_text())
-    slug, size = social_slug(name), 56
+    slug = social_slug(name)
     if slug == "email":
-        glyph = EMAIL
+        glyph = email_glyph(t)
     elif slug in ("website", "site", "web"):
-        glyph = GLOBE
+        glyph = globe_glyph(t)
     elif slug in icons:
-        glyph = f'<path d="{icons[slug]}" fill="{INK}"/>'
+        glyph = f'<path d="{icons[slug]}" fill="{t["ink"]}"/>'
     else:
-        glyph = None
-    inner = (f'<g transform="translate(14,14) scale({28/24})"><title>{escape(name)}</title>{glyph}</g>'
-             if glyph else text(28, 33, name[:2].upper(), 16, INK, "700", "middle"))
-    style = f"<style>{MONO_CSS}</style>" if not glyph else ""
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">'
-            f'{style}{GRAIN}{paper(size, size)}'
-            f'<rect x="1" y="1" width="{size-2}" height="{size-2}" rx="2" fill="none" stroke="{INK}" stroke-width="1.5"/>'
-            f'<rect x="4.5" y="4.5" width="{size-9}" height="{size-9}" rx="1" fill="none" stroke="{INK}" stroke-width=".5"/>'
-            f'{inner}</svg>')
+        glyph = ""
+    w = social_width(name)
+    label = name.upper()
+    b = f'<g transform="translate(16,9) scale({22 / 24})">{glyph}</g>' if glyph else ""
+    b += txt(t, 48, 25, label, 13, "ink", 700, extra=f'textLength="{len(label) * 9.5:.1f}" lengthAdjust="spacing"')
+    return card(t, w, 40, b, name, shadow=4)
 
 
 # ---------------- music ----------------
 def now_playing():
+    """Returns (label, track, url, playing, ok)."""
     m = p["music"]
     key = os.environ.get("LASTFM_API_KEY")
     if not key or m["lastfm_user"].startswith("YOUR_"):
-        return m["fallback"], None
+        return "listening", m["fallback"], None, False, False
     q = urllib.parse.urlencode({"method": "user.getrecenttracks", "user": m["lastfm_user"],
                                 "api_key": key, "format": "json", "limit": 1})
     try:
         t = _open(urllib.request.Request(f"https://ws.audioscrobbler.com/2.0/?{q}"))["recenttracks"]["track"][0]
-        label = "now playing" if t.get("@attr", {}).get("nowplaying") == "true" else "last played"
-        return f'{label}: {t["artist"]["#text"]} - {t["name"]}', t.get("url")
+        playing = t.get("@attr", {}).get("nowplaying") == "true"
+        return ("now playing" if playing else "last played",
+                f'{t["artist"]["#text"]} - {t["name"]}', t.get("url"), playing, True)
     except Exception as e:
         print("[lastfm] FAILED:", e)
-        return m["fallback"], None
+        return "listening", m["fallback"], None, False, False
 
 
-def img(slug, alt):
-    return f'<img src="assets/h-{slug}.svg" width="100%" alt="{alt}" />'
+# ---------------- output helpers ----------------
+def emit(name, fn, fresh=True):
+    """Write a graphic for every theme. With fresh=False, keep any existing file."""
+    for tn, t in THEMES.items():
+        path = root / "assets" / tn / name
+        if fresh or not path.exists():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(fn(t))
+
+
+def pic(name, alt, width="100%", link=None):
+    a = html.escape(alt, quote=True)
+    im = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/{name}">'
+          f'<img src="assets/light/{name}" width="{width}" alt="{a}" /></picture>')
+    return f'<a href="{html.escape(link, quote=True)}">{im}</a>' if link else im
+
+
+def pic_png(name, alt, width):
+    a = html.escape(alt, quote=True)
+    return (f'<picture><source media="(prefers-color-scheme: dark)" srcset="assets/img/{name}-dark.png">'
+            f'<img src="assets/img/{name}-light.png" width="{width}" alt="{a}" /></picture>')
+
+
+def load_cache():
+    f = root / "data" / "cache.json"
+    try:
+        return json.loads(f.read_text())
+    except Exception:
+        return {}
+
+
+def save_cache(c):
+    f = root / "data" / "cache.json"
+    f.parent.mkdir(exist_ok=True)
+    f.write_text(json.dumps(c, indent=2, sort_keys=True) + "\n")
+
+
+SECTIONS = [("about", "ABOUT"), ("projects", "PROJECTS"), ("stack", "STACK"),
+            ("listening", "LISTENING"), ("activity", "ACTIVITY"), ("contact", "CONTACT")]
 
 
 # ---------------- build ----------------
-A = root / "assets"
-A.mkdir(exist_ok=True)
-d = collect()
-A.joinpath("stats.svg").write_text(stats_svg(d))
-A.joinpath("langs.svg").write_text(langs_svg(d))
-A.joinpath("stack.svg").write_text(stack_svg())
-A.joinpath("tagline.svg").write_text(tagline_svg(p["tagline"]))
-A.joinpath("divider.svg").write_text(divider_svg())
-for i, (slug, title) in enumerate([("about", "ABOUT"), ("projects", "PROJECTS"), ("stack", "STACK"),
-                                   ("listening", "LISTENING"), ("github", "GITHUB"),
-                                   ("contributing", "CONTRIBUTING"), ("contact", "CONTACT")], 1):
-    A.joinpath(f"h-{slug}.svg").write_text(heading_svg(i, title))
+def build(d, track_info):
+    cache = load_cache()
+    label, track, track_url, playing, track_ok = track_info
 
-src = p.get("projects_source", {})
-projects = []
-if d["pins"] and src.get("mode") == "pinned":
-    projects = d["pins"][: src.get("max", 3)]
-projects = projects or p["projects_fallback"]
-for old in A.glob("pin-*.svg"):
-    old.unlink()
-pins = []
-for i, r in enumerate(projects):
-    A.joinpath(f"pin-{i+1}.svg").write_text(pin_svg(r))
-    pins.append(f'<a href="https://github.com/{gh}/{r["repo"]}"><img src="assets/pin-{i+1}.svg" width="{W}" alt="{r["repo"]}" /></a>')
+    emit("tagline.svg", lambda t: tagline_svg(t, p["tagline"]))
+    emit("divider.svg", divider_svg)
+    for i, (slug, title) in enumerate(SECTIONS, 1):
+        emit(f"h-{slug}.svg", lambda t, i=i, title=title: heading_svg(t, i, title))
+    emit("status.svg", status_card)
+    emit("stack.svg", stack_card)
+    emit("stats.svg", lambda t: stats_card(t, d), fresh=d["repos"] is not None)
+    emit("langs.svg", lambda t: langs_card(t, d), fresh=d["repos"] is not None)
+    if d["calendar"]:
+        emit("heatmap.svg", lambda t: heatmap_card(t, d))
+    emit("playing.svg", lambda t: now_playing_card(t, label, track, playing), fresh=track_ok)
 
-track, track_url = now_playing()
-track_md = f"**{track}**" + (f"  \n[Open on Last.fm]({track_url})" if track_url else "")
-s = p["status"]
-for old in A.glob("social-*.svg"):
-    old.unlink()
-tiles = []
-for name, url in p["links"].items():
-    A.joinpath(f"social-{social_slug(name)}.svg").write_text(social_svg(name))
-    tiles.append(f'<a href="{url}"><img src="assets/social-{social_slug(name)}.svg" width="56" height="56" alt="{name}" /></a>')
-links = "&nbsp;&nbsp;".join(tiles)
+    # projects: live pins, else last good pins, else the fallback list from profile.json
+    src = p.get("projects_source", {})
+    mx = src.get("max", 4)
+    if d["pins"] and src.get("mode") == "pinned":
+        projects = d["pins"][:mx]
+        cache["pins"] = projects
+        save_cache(cache)
+    else:
+        projects = cache.get("pins") or p.get("projects_fallback", [])
+    projects = [r for r in projects if not r["repo"].startswith("PROJECT_")][:mx]
 
-readme = f"""<div align="center">
+    for tn in THEMES:
+        for old in (root / "assets" / tn).glob("pin-*.svg"):
+            old.unlink()
+    pins = []
+    for i, r in enumerate(projects, 1):
+        emit(f"pin-{i}.svg", lambda t, r=r: pin_card(t, r))
+        pins.append(pic(f"pin-{i}.svg", f'{r["repo"]}: {r["description"]}', "49%", f"https://github.com/{gh}/{r['repo']}"))
 
-<img src="assets/nomad-logo.jpg" width="320" alt="{p['name'].upper()}" />
+    for tn in THEMES:
+        for old in (root / "assets" / tn).glob("social-*.svg"):
+            old.unlink()
+    socials = []
+    for name, url in p["links"].items():
+        emit(f"social-{social_slug(name)}.svg", lambda t, name=name: social_svg(t, name))
+        socials.append(pic(f"social-{social_slug(name)}.svg", name, str(social_width(name)), url))
 
-<img src="assets/tagline.svg" width="100%" alt="{p['tagline']}" />
+    def head(slug, title):
+        return pic(f"h-{slug}.svg", title)
 
-</div>
+    parts = [
+        '<div align="center">\n',
+        pic_png("logo", p["name"].upper(), 300),
+        "",
+        pic("tagline.svg", p["tagline"]),
+        "\n</div>\n",
+        pic("divider.svg", ""),
+        "",
+        head("about", "About"),
+        "",
+        p["bio"],
+        "",
+        pic("status.svg", "Status"),
+        "",
+    ]
+    if pins:
+        parts += [head("projects", "Projects"), ""]
+        for i in range(0, len(pins), 2):
+            parts += ["\n".join(pins[i:i + 2]), ""]
+    parts += [head("stack", "Stack"), "", pic("stack.svg", "Languages and tools"), "",
+              head("listening", "Listening"), ""]
+    playing_img = pic("playing.svg", f"{label}: {track}", link=track_url)
+    parts += [playing_img, "", head("activity", "Activity"), ""]
+    if (root / "assets" / "light" / "heatmap.svg").exists():
+        parts += [pic("heatmap.svg", "Contribution activity, past year"), ""]
+    parts += ["\n".join([pic("stats.svg", "GitHub stats", "49%"), pic("langs.svg", "Top languages", "49%")]), "",
+              head("contact", "Contact"), "", "\n".join(socials), "",
+              pic("divider.svg", ""), "", '<div align="center">\n',
+              pic_png("ascii", "", 200), "", f"<sub>{html.escape(p['footer'])}</sub>", "\n</div>", ""]
+    (root / "README.md").write_text("\n".join(parts))
 
-<img src="assets/divider.svg" width="100%" alt="" />
 
-{img('about', 'About')}
-
-{p['bio']}
-
-**working on:** {s['working_on']}<br/>
-**learning:** {s['learning']}<br/>
-**ask me about:** {s['ask_me_about']}<br/>
-**based in:** {s['based_in']}
-
-{img('projects', 'Projects')}
-
-{chr(10).join(pins)}
-
-{img('stack', 'Stack')}
-
-<img src="assets/stack.svg" width="{W}" alt="Languages and tools" />
-
-{img('listening', 'Listening')}
-
-{track_md}
+def main():
+    d = collect()
+    build(d, now_playing())
+    print("built:", "pinned repos" if d["pins"] else "cached/fallback projects", "|",
+          "stats" if d["repos"] else "no stats", "|", "heatmap" if d["calendar"] else "no heatmap")
 
 
-{img('github', 'GitHub')}
-
-<img src="assets/stats.svg" width="{W}" alt="GitHub stats" />
-
-<img src="assets/langs.svg" width="{W}" alt="Top languages" />
-
-{img('contributing', 'Contributing')}
-
-{p['contributing']}
-
-{img('contact', 'Contact')}
-
-{links}
-
-<img src="assets/divider.svg" width="100%" alt="" />
-
-<div align="center">
-
-<img src="assets/nomad-ascii.jpg" width="220" alt="" />
-
-<sub>{p['footer']}</sub>
-
-</div>
-"""
-(root / "README.md").write_text(readme)
-print("built:", "pinned repos" if d["pins"] else "fallback projects", "|", "stats" if d["repos"] else "no stats")
+if __name__ == "__main__":
+    main()

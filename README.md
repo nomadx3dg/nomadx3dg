@@ -1,56 +1,43 @@
 <div align="center">
 
-<img src="assets/nomad-logo.jpg" width="320" alt="NOMAD" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/img/logo-dark.png"><img src="assets/img/logo-light.png" width="300" alt="NOMAD" /></picture>
 
-<img src="assets/tagline.svg" width="100%" alt="builder / wanderer / tinkerer" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/tagline.svg"><img src="assets/light/tagline.svg" width="100%" alt="builder / wanderer / tinkerer" /></picture>
 
 </div>
 
-<img src="assets/divider.svg" width="100%" alt="" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/divider.svg"><img src="assets/light/divider.svg" width="100%" alt="" /></picture>
 
-<img src="assets/h-about.svg" width="100%" alt="About" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-about.svg"><img src="assets/light/h-about.svg" width="100%" alt="About" /></picture>
 
 I'm Nomad. I make small, slightly weird tools and a lot of half-finished experiments, usually late at night. If something annoys me enough, I'll build my own fix for it. I'm always up for teaming up on something fun.
 
-**working on:** the thing I can't stop thinking about<br/>
-**learning:** something new, as usual<br/>
-**ask me about:** whatever you're curious about<br/>
-**based in:** Indonesia
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/status.svg"><img src="assets/light/status.svg" width="100%" alt="Status" /></picture>
 
-<img src="assets/h-projects.svg" width="100%" alt="Projects" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-stack.svg"><img src="assets/light/h-stack.svg" width="100%" alt="Stack" /></picture>
 
-<a href="https://github.com/nomadx3dg/cubicle"><img src="assets/pin-1.svg" width="480" alt="cubicle" /></a>
-<a href="https://github.com/nomadx3dg/echostar"><img src="assets/pin-2.svg" width="480" alt="echostar" /></a>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stack.svg"><img src="assets/light/stack.svg" width="100%" alt="Languages and tools" /></picture>
 
-<img src="assets/h-stack.svg" width="100%" alt="Stack" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-listening.svg"><img src="assets/light/h-listening.svg" width="100%" alt="Listening" /></picture>
 
-<img src="assets/stack.svg" width="480" alt="Languages and tools" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/playing.svg"><img src="assets/light/playing.svg" width="100%" alt="listening: nothing playing right now" /></picture>
 
-<img src="assets/h-listening.svg" width="100%" alt="Listening" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg"><img src="assets/light/h-activity.svg" width="100%" alt="Activity" /></picture>
 
-**last played: Sensit Haptics - Gaming Seat Review**  
-[Open on Last.fm](https://www.last.fm/music/Sensit+Haptics/_/Gaming+Seat+Review)
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg"><img src="assets/light/stats.svg" width="49%" alt="GitHub stats" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs.svg"><img src="assets/light/langs.svg" width="49%" alt="Top languages" /></picture>
 
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-contact.svg"><img src="assets/light/h-contact.svg" width="100%" alt="Contact" /></picture>
 
-<img src="assets/h-github.svg" width="100%" alt="GitHub" />
+<a href="mailto:moqxcz@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/social-email.svg"><img src="assets/light/social-email.svg" width="119" alt="Email" /></picture></a>
+<a href="https://nomadx3dg.vercel.app"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/social-website.svg"><img src="assets/light/social-website.svg" width="138" alt="Website" /></picture></a>
+<a href="https://www.tiktok.com/@nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/social-tiktok.svg"><img src="assets/light/social-tiktok.svg" width="129" alt="TikTok" /></picture></a>
 
-<img src="assets/stats.svg" width="480" alt="GitHub stats" />
-
-<img src="assets/langs.svg" width="480" alt="Top languages" />
-
-<img src="assets/h-contributing.svg" width="100%" alt="Contributing" />
-
-Want to help out? Fork the repo, make a branch, and send me a pull request. Small fixes are totally welcome. If you're not sure where to start, open an issue and say hi.
-
-<img src="assets/h-contact.svg" width="100%" alt="Contact" />
-
-<a href="mailto:moqxcz@gmail.com"><img src="assets/social-email.svg" width="56" height="56" alt="Email" /></a>&nbsp;&nbsp;<a href="https://nomadx3dg.vercel.app"><img src="assets/social-website.svg" width="56" height="56" alt="Website" /></a>&nbsp;&nbsp;<a href="https://www.tiktok.com/@nomadx3dg"><img src="assets/social-tiktok.svg" width="56" height="56" alt="TikTok" /></a>
-
-<img src="assets/divider.svg" width="100%" alt="" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/divider.svg"><img src="assets/light/divider.svg" width="100%" alt="" /></picture>
 
 <div align="center">
 
-<img src="assets/nomad-ascii.jpg" width="220" alt="" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/img/ascii-dark.png"><img src="assets/img/ascii-light.png" width="200" alt="" /></picture>
 
 <sub>always on the move.</sub>
 

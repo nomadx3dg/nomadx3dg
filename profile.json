@@ -9,78 +9,10 @@
     "ask_me_about": "whatever you're curious about",
     "based_in": "Indonesia"
   },
-  "skills": {
-    "languages": [
-      [
-        "C",
-        "c"
-      ],
-      [
-        "C++",
-        "cplusplus"
-      ],
-      [
-        "Rust",
-        "rust"
-      ],
-      [
-        "Go",
-        "go"
-      ],
-      [
-        "Python",
-        "python"
-      ],
-      [
-        "SQL",
-        ""
-      ],
-      [
-        "HTML",
-        "html5"
-      ],
-      [
-        "CSS",
-        "css"
-      ],
-      [
-        "JavaScript",
-        "javascript"
-      ]
-    ],
-    "tools": [
-      [
-        "React",
-        "react"
-      ],
-      [
-        "Vite",
-        "vite"
-      ],
-      [
-        "Linux",
-        "linux"
-      ],
-      [
-        "Git",
-        "git"
-      ],
-      [
-        "Neovim",
-        "neovim"
-      ],
-      [
-        "GitHub Actions",
-        "githubactions"
-      ]
-    ]
-  },
   "music": {
-    "service": "YouTube Music",
     "lastfm_user": "threeletterssk_",
     "fallback": "nothing playing right now"
   },
-  "contributing": "Want to help out? Fork the repo, make a branch, and send me a pull request. Small fixes are totally welcome. If you're not sure where to start, open an issue and say hi.",
   "links": {
     "Email": "mailto:moqxcz@gmail.com",
     "Website": "https://nomadx3dg.vercel.app",
@@ -89,7 +21,7 @@
   "footer": "always on the move.",
   "projects_source": {
     "mode": "pinned",
-    "max": 3
+    "max": 4
   },
   "projects_fallback": [
     {
@@ -104,5 +36,26 @@
       "repo": "PROJECT_THREE",
       "description": "a quick line on what it does and why I made it"
     }
-  ]
+  ],
+  "skills": {
+    "languages": [
+      ["C", "c"],
+      ["C++", "cplusplus"],
+      ["Rust", "rust"],
+      ["Go", "go"],
+      ["Python", "python"],
+      ["SQL", ""],
+      ["HTML", "html5"],
+      ["CSS", "css"],
+      ["JavaScript", "javascript"]
+    ],
+    "tools": [
+      ["React", "react"],
+      ["Vite", "vite"],
+      ["Linux", "linux"],
+      ["Git", "git"],
+      ["Neovim", "neovim"],
+      ["GitHub Actions", "githubactions"]
+    ]
+  }
 }

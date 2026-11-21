@@ -4,15 +4,20 @@ on:
   push:
     paths: [profile.json, build.py, icons.json]
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-profile
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,9 +31,9 @@ jobs:
         run: |
           git config user.name "profile-bot"
           git config user.email "profile-bot@users.noreply.github.com"
-          git add README.md assets
+          git add README.md assets data
           if ! git diff --cached --quiet; then
             git commit -m "update profile"
-            git pull --rebase origin main
+            git pull --rebase --autostash origin main
             git push
           fi
