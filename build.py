@@ -508,7 +508,7 @@ def save_cache(c):
 
 
 SECTIONS = [("about", "ABOUT"), ("projects", "PROJECTS"), ("stack", "STACK"),
-            ("recent", "RECENT"), ("activity", "ACTIVITY"), ("contact", "CONTACT")]
+            ("latest", "RECENT"), ("activity", "ACTIVITY"), ("contact", "CONTACT")]
 
 
 # ---------------- build ----------------
@@ -527,7 +527,7 @@ def build(d):
         emit("heatmap.svg", lambda t: heatmap_card(t, d))
     else:
         EMITTED.add("heatmap.svg")  # keep the last good one
-    emit("recent.svg", lambda t: recent_card(t, d["events"]), fresh=d["events"] is not None)
+    emit("latest.svg", lambda t: recent_card(t, d["events"]), fresh=d["events"] is not None)
 
     # projects: live pins, else last good pins, else the fallback list from profile.json
     src = p.get("projects_source", {})
@@ -579,8 +579,8 @@ def build(d):
         for i in range(0, len(pins), 2):
             parts += ["\n".join(pins[i:i + 2]), ""]
     parts += [head("stack", "Stack"), "", pic("stack.svg", "Languages and tools"), "",
-              head("recent", "Recent"), "",
-              pic("recent.svg", "Recent GitHub activity", link=f"https://github.com/{gh}"), "",
+              head("latest", "Recent"), "",
+              pic("latest.svg", "Recent GitHub activity", link=f"https://github.com/{gh}"), "",
               head("activity", "Activity"), ""]
     if (root / "assets" / "light" / "heatmap.svg").exists():
         parts += [pic("heatmap.svg", "Contribution activity, past year"), ""]
