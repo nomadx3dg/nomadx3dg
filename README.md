@@ -14,6 +14,13 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/status.svg"><img src="assets/light/status.svg" width="100%" alt="Status" /></picture>
 
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-projects.svg"><img src="assets/light/h-projects.svg" width="100%" alt="Projects" /></picture>
+
+<a href="https://github.com/nomadx3dg/cubicle"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-1.svg"><img src="assets/light/pin-1.svg" width="49%" alt="cubicle: Interactive 3D renderer for your terminal. " /></picture></a>
+<a href="https://github.com/nomadx3dg/echostar"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-2.svg"><img src="assets/light/pin-2.svg" width="49%" alt="echostar: chess engine that learns how you play, then plays your style while staying correct." /></picture></a>
+
+<a href="https://github.com/nomadx3dg/bareboxn"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-3.svg"><img src="assets/light/pin-3.svg" width="49%" alt="bareboxn: A native rootless Linux and BSD OS emulator. " /></picture></a>
+
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-stack.svg"><img src="assets/light/h-stack.svg" width="100%" alt="Stack" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stack.svg"><img src="assets/light/stack.svg" width="100%" alt="Languages and tools" /></picture>
@@ -23,6 +30,8 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 <a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/recent.svg"><img src="assets/light/recent.svg" width="100%" alt="Recent GitHub activity" /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg"><img src="assets/light/h-activity.svg" width="100%" alt="Activity" /></picture>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg"><img src="assets/light/heatmap.svg" width="100%" alt="Contribution activity, past year" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg"><img src="assets/light/stats.svg" width="49%" alt="GitHub stats" /></picture>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs.svg"><img src="assets/light/langs.svg" width="49%" alt="Top languages" /></picture>
