@@ -28,8 +28,8 @@ p = json.loads((root / "profile.json").read_text())
 gh = p["github_username"]
 
 THEMES = {
-    "light": dict(bg="#f4efe6", ink="#1b1a17", muted="#6f6a5e", faint="#d9d2c3", accent="#a80030"),
-    "dark": dict(bg="#171614", ink="#efe9dc", muted="#a09a8c", faint="#38352f", accent="#d70a53"),
+    "light": dict(bg="#f4efe6", ink="#1b1a17", muted="#6f6a5e", faint="#d9d2c3", accent="#b0001e"),
+    "dark": dict(bg="#171614", ink="#efe9dc", muted="#a09a8c", faint="#38352f", accent="#e8203a"),
 }
 FONT = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace"
 SH = 6        # hard shadow offset on cards
@@ -41,6 +41,17 @@ HALF = 400    # half-width graphic (two per row)
 def rgb(hex_):
     h = hex_.lstrip("#")
     return [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+
+
+def mix(a, b, k):
+    """Opaque blend of colour a toward b (k=0 is a, k=1 is b)."""
+    ca, cb = rgb(a), rgb(b)
+    return "#" + "".join(f"{round((x + (y - x) * k) * 255):02x}" for x, y in zip(ca, cb))
+
+
+def levels(t):
+    """Five solid heatmap shades, so reds stay the same hue at every level."""
+    return [t["faint"]] + [mix(t["faint"], t["accent"], k) for k in (.4, .65, .85, 1)]
 
 
 def txt(t, x, y, s, size=15, color="ink", weight=400, anchor="start", extra=""):
@@ -262,7 +273,7 @@ def langs_card(t, d):
         b += txt(t, 24, y, k, 14) + txt(t, cw - 24, y, f"{pct:.0f}%", 14, "muted", anchor="end")
         b += f'<rect x="24" y="{y + 7}" width="{cw - 48}" height="6" fill="{t["faint"]}"/>'
         b += (f'<rect x="24" y="{y + 7}" width="{max(4, (cw - 48) * pct / 100):.1f}" height="6" '
-              f'fill="{t["accent"]}" fill-opacity="{max(.3, 1 - i * .15):.2f}"/>')
+              f'fill="{t["accent"]}"/>')
     return card(t, HALF, 244, b, "Top languages")
 
 
@@ -289,16 +300,14 @@ def heatmap_card(t, d):
         for day in w:
             c = day["contributionCount"]
             lvl = 0 if c == 0 else min(4, max(1, -(-4 * c // peak)))
-            fill = t["faint"] if lvl == 0 else t["accent"]
-            op = (1, .28, .5, .75, 1)[lvl]
+            fill = levels(t)[lvl]
             b += (f'<rect x="{x:.1f}" y="{y0 + day["weekday"] * pitch}" width="{cell}" height="{cell}" '
-                  f'fill="{fill}" fill-opacity="{op}"><title>{day["date"]}: {c}</title></rect>')
+                  f'fill="{fill}"><title>{day["date"]}: {c}</title></rect>')
     ly = y0 + 7 * pitch + 14
     lx = cw - 24
     b += txt(t, lx, ly + 9, "more", 10, "muted", anchor="end")
-    for i, op in enumerate((1, .75, .5, .28)):
-        b += f'<rect x="{lx - 40 - i * 15}" y="{ly}" width="{cell}" height="{cell}" fill="{t["accent"]}" fill-opacity="{op}"/>'
-    b += f'<rect x="{lx - 40 - 4 * 15}" y="{ly}" width="{cell}" height="{cell}" fill="{t["faint"]}"/>'
+    for i, col in enumerate(reversed(levels(t))):
+        b += f'<rect x="{lx - 40 - i * 15}" y="{ly}" width="{cell}" height="{cell}" fill="{col}"/>'
     b += txt(t, lx - 40 - 4 * 15 - 8, ly + 9, "less", 10, "muted", anchor="end")
     return card(t, FULL, ly + cell + 22, b, "Contribution activity, past year")
 
