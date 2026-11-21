@@ -7,7 +7,7 @@ twice (assets/light, assets/dark) and swapped with <picture>, so it follows
 the viewer's GitHub theme.
 
 Nothing depends on third-party image services and no fonts are embedded.
-GitHub data comes from the API (GITHUB_TOKEN), Last.fm from LASTFM_API_KEY.
+GitHub data comes from the API (GITHUB_TOKEN).
 If an API call fails, the previous graphic is kept instead of being replaced
 by a placeholder. Standard library only.
 """
@@ -16,9 +16,9 @@ import json
 import os
 import random
 import textwrap
-import urllib.parse
 import urllib.request
 from collections import Counter
+from datetime import datetime, timezone
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -127,7 +127,7 @@ def rest(path):
 
 def collect():
     d = dict(followers=None, repo_count=None, repos=None, commits=None, prs=None,
-             issues=None, calendar=None, pins=None)
+             issues=None, calendar=None, pins=None, events=None)
     u = gql("repos", Q_REPOS)
     if u:
         d["followers"] = u["followers"]["totalCount"]
@@ -158,6 +158,11 @@ def collect():
                       "language": (n["primaryLanguage"] or {}).get("name"),
                       "stars": n["stargazerCount"], "forks": n["forkCount"]}
                      for n in u["pinnedItems"]["nodes"] if n]
+    try:
+        d["events"] = rest(f"/users/{gh}/events/public?per_page=50")
+        print("[events] ok")
+    except Exception as e:
+        print("[events] FAILED:", e)
     return d
 
 
@@ -297,26 +302,69 @@ def heatmap_card(t, d):
     return card(t, FULL, ly + cell + 22, b, "Contribution activity, past year")
 
 
-def now_playing_card(t, label, track, playing):
+def ago(iso):
+    secs = max(0, (datetime.now(timezone.utc) - datetime.fromisoformat(iso.replace("Z", "+00:00"))).total_seconds())
+    for n, unit in ((86400 * 30, "mo"), (86400, "d"), (3600, "h"), (60, "m")):
+        if secs >= n:
+            return f"{int(secs // n)}{unit} ago"
+    return "just now"
+
+
+def describe(ev):
+    """(verb, repo) for the event types worth showing, else None."""
+    k, pl = ev.get("type"), ev.get("payload", {})
+    repo = ev["repo"]["name"].split("/", 1)[-1]
+    if k == "PushEvent":
+        n = pl.get("size") or len(pl.get("commits", []))
+        return (f"pushed {n} commit{'s' if n != 1 else ''}" if n else "pushed"), repo
+    if k == "CreateEvent":
+        return f"created {pl.get('ref_type', 'repo')}", repo
+    if k == "PullRequestEvent":
+        pr = pl.get("pull_request", {})
+        act = "merged PR" if pr.get("merged") else f"{pl.get('action', 'opened')} PR"
+        return act, repo
+    if k == "IssuesEvent":
+        return f"{pl.get('action', 'opened')} issue", repo
+    if k == "IssueCommentEvent":
+        return "commented", repo
+    if k == "WatchEvent":
+        return "starred", repo
+    if k == "ForkEvent":
+        return "forked", repo
+    if k == "ReleaseEvent":
+        return "released", repo
+    return None
+
+
+def recent_items(events, n=5):
+    items = []
+    for ev in events or []:
+        d = describe(ev)
+        if not d:
+            continue
+        if items and items[-1][:2] == d:  # collapse repeats
+            continue
+        items.append((*d, ago(ev["created_at"])))
+        if len(items) == n:
+            break
+    return items
+
+
+def recent_card(t, events):
     cw = FULL - SH - 2
-    base = 60
-    heights = [[10, 30, 16, 26, 10], [24, 12, 30, 14, 24], [16, 26, 10, 30, 16],
-               [28, 14, 24, 10, 28], [12, 24, 30, 18, 12]]
-    durs = [0.9, 1.1, 0.8, 1.2, 1.0]
-    b = ""
-    for i, hs in enumerate(heights):
-        x = 28 + i * 12
-        if playing:
-            ys = ";".join(str(base - h) for h in hs)
-            b += (f'<rect x="{x}" y="{base - hs[0]}" width="7" height="{hs[0]}" fill="{t["accent"]}">'
-                  f'<animate attributeName="height" values="{";".join(map(str, hs))}" dur="{durs[i]}s" repeatCount="indefinite"/>'
-                  f'<animate attributeName="y" values="{ys}" dur="{durs[i]}s" repeatCount="indefinite"/></rect>')
-        else:
-            h = (14, 26, 18, 30, 12)[i]
-            b += f'<rect x="{x}" y="{base - h}" width="7" height="{h}" fill="{t["muted"]}" fill-opacity=".55"/>'
-    b += txt(t, 100, 38, label.upper(), 12, "accent" if playing else "muted", 700, extra='letter-spacing="2"')
-    b += txt(t, 100, 64, clip(track, 58), 18, "ink", 700)
-    return card(t, FULL, 88, b, f"{label}: {track}")
+    items = recent_items(events)
+    b = txt(t, 24, 36, "RECENT ACTIVITY", 12, "muted", 700, extra='letter-spacing="2"')
+    if not items:
+        b += txt(t, 24, 72, "no public activity yet", 14, "muted")
+        return card(t, FULL, 100, b, "Recent GitHub activity")
+    for i, (verb, repo, when) in enumerate(items):
+        y = 68 + i * 30
+        b += f'<rect x="24" y="{y - 10}" width="8" height="8" fill="{t["accent"]}"/>'
+        b += txt(t, 44, y, verb, 14, "muted") + txt(t, 220, y, clip(repo, 40), 15, "ink", 700)
+        b += txt(t, cw - 24, y, when, 13, "muted", anchor="end")
+        if i < len(items) - 1:
+            b += dashed(t, 24, cw - 24, y + 10)
+    return card(t, FULL, 68 + (len(items) - 1) * 30 + 26, b, "Recent GitHub activity")
 
 
 # ---------------- headings, tagline, divider, socials ----------------
@@ -398,25 +446,6 @@ def social_svg(t, name):
     return card(t, w, 40, b, name, shadow=4)
 
 
-# ---------------- music ----------------
-def now_playing():
-    """Returns (label, track, url, playing, ok)."""
-    m = p["music"]
-    key = os.environ.get("LASTFM_API_KEY")
-    if not key or m["lastfm_user"].startswith("YOUR_"):
-        return "listening", m["fallback"], None, False, False
-    q = urllib.parse.urlencode({"method": "user.getrecenttracks", "user": m["lastfm_user"],
-                                "api_key": key, "format": "json", "limit": 1})
-    try:
-        t = _open(urllib.request.Request(f"https://ws.audioscrobbler.com/2.0/?{q}"))["recenttracks"]["track"][0]
-        playing = t.get("@attr", {}).get("nowplaying") == "true"
-        return ("now playing" if playing else "last played",
-                f'{t["artist"]["#text"]} - {t["name"]}', t.get("url"), playing, True)
-    except Exception as e:
-        print("[lastfm] FAILED:", e)
-        return "listening", m["fallback"], None, False, False
-
-
 # ---------------- output helpers ----------------
 def emit(name, fn, fresh=True):
     """Write a graphic for every theme. With fresh=False, keep any existing file."""
@@ -455,13 +484,12 @@ def save_cache(c):
 
 
 SECTIONS = [("about", "ABOUT"), ("projects", "PROJECTS"), ("stack", "STACK"),
-            ("listening", "LISTENING"), ("activity", "ACTIVITY"), ("contact", "CONTACT")]
+            ("recent", "RECENT"), ("activity", "ACTIVITY"), ("contact", "CONTACT")]
 
 
 # ---------------- build ----------------
-def build(d, track_info):
+def build(d):
     cache = load_cache()
-    label, track, track_url, playing, track_ok = track_info
 
     emit("tagline.svg", lambda t: tagline_svg(t, p["tagline"]))
     emit("divider.svg", divider_svg)
@@ -473,7 +501,7 @@ def build(d, track_info):
     emit("langs.svg", lambda t: langs_card(t, d), fresh=d["repos"] is not None)
     if d["calendar"]:
         emit("heatmap.svg", lambda t: heatmap_card(t, d))
-    emit("playing.svg", lambda t: now_playing_card(t, label, track, playing), fresh=track_ok)
+    emit("recent.svg", lambda t: recent_card(t, d["events"]), fresh=d["events"] is not None)
 
     # projects: live pins, else last good pins, else the fallback list from profile.json
     src = p.get("projects_source", {})
@@ -525,9 +553,9 @@ def build(d, track_info):
         for i in range(0, len(pins), 2):
             parts += ["\n".join(pins[i:i + 2]), ""]
     parts += [head("stack", "Stack"), "", pic("stack.svg", "Languages and tools"), "",
-              head("listening", "Listening"), ""]
-    playing_img = pic("playing.svg", f"{label}: {track}", link=track_url)
-    parts += [playing_img, "", head("activity", "Activity"), ""]
+              head("recent", "Recent"), "",
+              pic("recent.svg", "Recent GitHub activity", link=f"https://github.com/{gh}"), "",
+              head("activity", "Activity"), ""]
     if (root / "assets" / "light" / "heatmap.svg").exists():
         parts += [pic("heatmap.svg", "Contribution activity, past year"), ""]
     parts += ["\n".join([pic("stats.svg", "GitHub stats", "49%"), pic("langs.svg", "Top languages", "49%")]), "",
@@ -539,7 +567,7 @@ def build(d, track_info):
 
 def main():
     d = collect()
-    build(d, now_playing())
+    build(d)
     print("built:", "pinned repos" if d["pins"] else "cached/fallback projects", "|",
           "stats" if d["repos"] else "no stats", "|", "heatmap" if d["calendar"] else "no heatmap")
 

@@ -18,9 +18,9 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stack.svg"><img src="assets/light/stack.svg" width="100%" alt="Languages and tools" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-listening.svg"><img src="assets/light/h-listening.svg" width="100%" alt="Listening" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-recent.svg"><img src="assets/light/h-recent.svg" width="100%" alt="Recent" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/playing.svg"><img src="assets/light/playing.svg" width="100%" alt="listening: nothing playing right now" /></picture>
+<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/recent.svg"><img src="assets/light/recent.svg" width="100%" alt="Recent GitHub activity" /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg"><img src="assets/light/h-activity.svg" width="100%" alt="Activity" /></picture>
 

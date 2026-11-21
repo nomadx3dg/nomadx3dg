@@ -25,7 +25,6 @@ jobs:
           python-version: "3.12"
       - run: python build.py
         env:
-          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit if changed
         run: |
