@@ -1,0 +1,25 @@
+{
+  "pins": [
+    {
+      "description": "Interactive 3D renderer for your terminal. ",
+      "forks": 0,
+      "language": "Rust",
+      "repo": "cubicle",
+      "stars": 0
+    },
+    {
+      "description": "chess engine that learns how you play, then plays your style while staying correct.",
+      "forks": 0,
+      "language": "Python",
+      "repo": "echostar",
+      "stars": 0
+    },
+    {
+      "description": "A native rootless Linux and BSD OS emulator. ",
+      "forks": 0,
+      "language": null,
+      "repo": "bareboxn",
+      "stars": 0
+    }
+  ]
+}
