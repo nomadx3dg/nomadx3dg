@@ -25,15 +25,15 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stack.svg?v=33b3cf81"><img src="assets/light/stack.svg?v=db73e3f7" width="100%" alt="Languages and tools" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-recent.svg?v=514eed82"><img src="assets/light/h-recent.svg?v=d57115ad" width="100%" alt="Recent" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-latest.svg?v=514eed82"><img src="assets/light/h-latest.svg?v=d57115ad" width="100%" alt="Recent" /></picture>
 
-<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/recent.svg?v=62f95895"><img src="assets/light/recent.svg?v=ff3f1896" width="100%" alt="Recent GitHub activity" /></picture></a>
+<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=20462848"><img src="assets/light/latest.svg?v=493fe2dd" width="100%" alt="Recent GitHub activity" /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg?v=2367f981"><img src="assets/light/h-activity.svg?v=59a9d7ca" width="100%" alt="Activity" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=8ff1ab8b"><img src="assets/light/heatmap.svg?v=deae6dc5" width="100%" alt="Contribution activity, past year" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=f15e6d98"><img src="assets/light/heatmap.svg?v=4c75de69" width="100%" alt="Contribution activity, past year" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg?v=e28ff4ec"><img src="assets/light/stats.svg?v=8f472980" width="49%" alt="GitHub stats" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg?v=482b276b"><img src="assets/light/stats.svg?v=50bbde2f" width="49%" alt="GitHub stats" /></picture>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs.svg?v=3290a8e7"><img src="assets/light/langs.svg?v=8d5928d7" width="49%" alt="Top languages" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-contact.svg?v=15733c73"><img src="assets/light/h-contact.svg?v=2baf4985" width="100%" alt="Contact" /></picture>
