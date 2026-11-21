@@ -27,16 +27,28 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-latest.svg?v=514eed82"><img src="assets/light/h-latest.svg?v=d57115ad" width="100%" alt="Recent" /></picture>
 
-<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=20462848"><img src="assets/light/latest.svg?v=493fe2dd" width="100%" alt="Recent GitHub activity" /></picture></a>
+<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=593a336a"><img src="assets/light/latest.svg?v=edff5099" width="100%" alt="Recent GitHub activity" /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg?v=2367f981"><img src="assets/light/h-activity.svg?v=59a9d7ca" width="100%" alt="Activity" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=f15e6d98"><img src="assets/light/heatmap.svg?v=4c75de69" width="100%" alt="Contribution activity, past year" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=97765d0f"><img src="assets/light/heatmap.svg?v=298d4db5" width="100%" alt="Contribution activity, past year" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg?v=482b276b"><img src="assets/light/stats.svg?v=50bbde2f" width="49%" alt="GitHub stats" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg?v=99236359"><img src="assets/light/stats.svg?v=baae62ff" width="49%" alt="GitHub stats" /></picture>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs.svg?v=3290a8e7"><img src="assets/light/langs.svg?v=8d5928d7" width="49%" alt="Top languages" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-contact.svg?v=15733c73"><img src="assets/light/h-contact.svg?v=2baf4985" width="100%" alt="Contact" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-wall.svg?v=4173e471"><img src="assets/light/h-wall.svg?v=249f8055" width="100%" alt="Pixel wall" /></picture>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/wall.svg?v=b95c3488"><img src="assets/light/wall.svg?v=101c9862" width="100%" alt="Collaborative pixel wall, painted by visitors" /></picture>
+
+<div align="center">
+
+<a href="https://github.com/nomadx3dg/nomadx3dg/issues/new?template=paint.yml"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/paint-btn.svg?v=d7b9ebf7"><img src="assets/light/paint-btn.svg?v=28f6c73a" width="190" alt="Paint a pixel" /></picture></a>
+
+<sub>pick a spot and a colour, a bot paints it and redraws the wall.</sub>
+
+</div>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-contact.svg?v=c31b9918"><img src="assets/light/h-contact.svg?v=13ae7b43" width="100%" alt="Contact" /></picture>
 
 <a href="mailto:moqxcz@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/social-email.svg?v=1b10e2aa"><img src="assets/light/social-email.svg?v=ddb18309" width="119" alt="Email" /></picture></a>
 <a href="https://nomadx3dg.vercel.app"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/social-website.svg?v=b7e471eb"><img src="assets/light/social-website.svg?v=ff41e48d" width="138" alt="Website" /></picture></a>
