@@ -11,6 +11,7 @@ GitHub data comes from the API (GITHUB_TOKEN).
 If an API call fails, the previous graphic is kept instead of being replaced
 by a placeholder. Standard library only.
 """
+import hashlib
 import html
 import json
 import os
@@ -27,8 +28,8 @@ p = json.loads((root / "profile.json").read_text())
 gh = p["github_username"]
 
 THEMES = {
-    "light": dict(bg="#f4efe6", ink="#1b1a17", muted="#6f6a5e", faint="#d9d2c3", accent="#d7263d"),
-    "dark": dict(bg="#171614", ink="#efe9dc", muted="#a09a8c", faint="#38352f", accent="#ff4d5e"),
+    "light": dict(bg="#f4efe6", ink="#1b1a17", muted="#6f6a5e", faint="#d9d2c3", accent="#a80030"),
+    "dark": dict(bg="#171614", ink="#efe9dc", muted="#a09a8c", faint="#38352f", accent="#d70a53"),
 }
 FONT = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace"
 SH = 6        # hard shadow offset on cards
@@ -447,8 +448,12 @@ def social_svg(t, name):
 
 
 # ---------------- output helpers ----------------
+EMITTED = set()
+
+
 def emit(name, fn, fresh=True):
     """Write a graphic for every theme. With fresh=False, keep any existing file."""
+    EMITTED.add(name)
     for tn, t in THEMES.items():
         path = root / "assets" / tn / name
         if fresh or not path.exists():
@@ -456,10 +461,20 @@ def emit(name, fn, fresh=True):
             path.write_text(fn(t))
 
 
+def ver(path):
+    """Short content hash, so GitHub's image cache refetches whenever a graphic changes."""
+    try:
+        return hashlib.md5(Path(path).read_bytes()).hexdigest()[:8]
+    except OSError:
+        return "0"
+
+
 def pic(name, alt, width="100%", link=None):
     a = html.escape(alt, quote=True)
-    im = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/{name}">'
-          f'<img src="assets/light/{name}" width="{width}" alt="{a}" /></picture>')
+    vd = ver(root / "assets" / "dark" / name)
+    vl = ver(root / "assets" / "light" / name)
+    im = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/{name}?v={vd}">'
+          f'<img src="assets/light/{name}?v={vl}" width="{width}" alt="{a}" /></picture>')
     return f'<a href="{html.escape(link, quote=True)}">{im}</a>' if link else im
 
 
@@ -501,6 +516,8 @@ def build(d):
     emit("langs.svg", lambda t: langs_card(t, d), fresh=d["repos"] is not None)
     if d["calendar"]:
         emit("heatmap.svg", lambda t: heatmap_card(t, d))
+    else:
+        EMITTED.add("heatmap.svg")  # keep the last good one
     emit("recent.svg", lambda t: recent_card(t, d["events"]), fresh=d["events"] is not None)
 
     # projects: live pins, else last good pins, else the fallback list from profile.json
@@ -563,6 +580,10 @@ def build(d):
               pic("divider.svg", ""), "", '<div align="center">\n',
               pic_png("ascii", "", 200), "", f"<sub>{html.escape(p['footer'])}</sub>", "\n</div>", ""]
     (root / "README.md").write_text("\n".join(parts))
+    for tn in THEMES:  # drop graphics nothing generates any more
+        for f in (root / "assets" / tn).glob("*.svg"):
+            if f.name not in EMITTED:
+                f.unlink()
 
 
 def main():
