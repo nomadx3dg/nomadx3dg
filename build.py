@@ -27,8 +27,8 @@ p = json.loads((root / "profile.json").read_text())
 gh = p["github_username"]
 
 THEMES = {
-    "light": dict(bg="#f4efe6", ink="#1b1a17", muted="#6f6a5e", faint="#d9d2c3", accent="#e8431f"),
-    "dark": dict(bg="#171614", ink="#efe9dc", muted="#a09a8c", faint="#38352f", accent="#ff5a36"),
+    "light": dict(bg="#f4efe6", ink="#1b1a17", muted="#6f6a5e", faint="#d9d2c3", accent="#d7263d"),
+    "dark": dict(bg="#171614", ink="#efe9dc", muted="#a09a8c", faint="#38352f", accent="#ff4d5e"),
 }
 FONT = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace"
 SH = 6        # hard shadow offset on cards
