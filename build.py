@@ -23,6 +23,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from xml.sax.saxutils import escape
 
+import canvas
+
 root = Path(__file__).parent
 p = json.loads((root / "profile.json").read_text())
 gh = p["github_username"]
@@ -377,6 +379,44 @@ def recent_card(t, events):
     return card(t, FULL, 68 + (len(items) - 1) * 30 + 26, b, "Recent GitHub activity")
 
 
+def wall_card(t, st):
+    cw = FULL - SH - 2
+    cell, step, gx, gy = 20, 22, 60, 68
+    painted = len(st["pixels"])
+    last = st.get("last")
+    b = txt(t, 24, 36, "PIXEL WALL", 12, "muted", 700, extra='letter-spacing="2"')
+    right = f"{painted} pixels   {st['paints']} paints"
+    if last:
+        right += f"   last: {last['user']} ({last['x']},{last['y']})"
+    b += txt(t, cw - 24, 36, clip(right, 70), 13, "muted", anchor="end")
+    for i in range(canvas.W):
+        b += txt(t, gx + i * step + cell / 2, gy - 8, i + 1, 8, "muted", anchor="middle")
+    for j in range(canvas.H):
+        b += txt(t, gx - 8, gy + j * step + 14, j + 1, 9, "muted", anchor="end")
+    for j in range(canvas.H):
+        for i in range(canvas.W):
+            idx = st["pixels"].get(f"{i + 1},{j + 1}")
+            if idx is None:
+                b += f'<rect x="{gx + i * step}" y="{gy + j * step}" width="{cell}" height="{cell}" fill="{t["faint"]}"/>'
+            else:
+                b += (f'<rect x="{gx + i * step}" y="{gy + j * step}" width="{cell}" height="{cell}" '
+                      f'fill="{canvas.PALETTE[idx][1]}" stroke="{t["ink"]}" stroke-opacity=".35"/>')
+    ly = gy + canvas.H * step + 14
+    for k, (name, col) in enumerate(canvas.PALETTE):
+        x = gx + k * 88
+        b += f'<rect x="{x}" y="{ly}" width="12" height="12" fill="{col}" stroke="{t["ink"]}" stroke-opacity=".35"/>'
+        b += txt(t, x + 18, ly + 10, name.lower(), 11, "muted")
+    return card(t, FULL, ly + 12 + 22, b, "Collaborative pixel wall")
+
+
+def button_svg(t, label):
+    w = int(20 + len(label) * 10.5 + 20 + 4 + 2)
+    inner = (f'<rect x="5" y="5" width="{w - 6}" height="40" fill="{t["ink"]}"/>'
+             f'<rect x="1" y="1" width="{w - 6}" height="40" fill="{t["accent"]}" stroke="{t["ink"]}" stroke-width="2"/>'
+             + txt(t, 21, 27, label, 14, "#ffffff", 700, extra=f'textLength="{len(label) * 10.5:.1f}" lengthAdjust="spacing"'))
+    return svg(w, 48, inner, label)
+
+
 # ---------------- headings, tagline, divider, socials ----------------
 def heading_svg(t, num, title):
     w, h = FULL, 48
@@ -508,7 +548,7 @@ def save_cache(c):
 
 
 SECTIONS = [("about", "ABOUT"), ("projects", "PROJECTS"), ("stack", "STACK"),
-            ("latest", "RECENT"), ("activity", "ACTIVITY"), ("contact", "CONTACT")]
+            ("latest", "RECENT"), ("activity", "ACTIVITY"), ("wall", "PIXEL WALL"), ("contact", "CONTACT")]
 
 
 # ---------------- build ----------------
@@ -521,6 +561,9 @@ def build(d):
         emit(f"h-{slug}.svg", lambda t, i=i, title=title: heading_svg(t, i, title))
     emit("status.svg", status_card)
     emit("stack.svg", stack_card)
+    st = canvas.load()
+    emit("wall.svg", lambda t: wall_card(t, st))
+    emit("paint-btn.svg", lambda t: button_svg(t, "PAINT A PIXEL"))
     emit("stats.svg", lambda t: stats_card(t, d), fresh=d["repos"] is not None)
     emit("langs.svg", lambda t: langs_card(t, d), fresh=d["repos"] is not None)
     if d["calendar"]:
@@ -585,6 +628,10 @@ def build(d):
     if (root / "assets" / "light" / "heatmap.svg").exists():
         parts += [pic("heatmap.svg", "Contribution activity, past year"), ""]
     parts += ["\n".join([pic("stats.svg", "GitHub stats", "49%"), pic("langs.svg", "Top languages", "49%")]), "",
+              head("wall", "Pixel wall"), "", pic("wall.svg", "Collaborative pixel wall, painted by visitors"), "",
+              '<div align="center">\n',
+              pic("paint-btn.svg", "Paint a pixel", "190", f"https://github.com/{gh}/{gh}/issues/new?template=paint.yml"),
+              "\n<sub>pick a spot and a colour, a bot paints it and redraws the wall.</sub>\n", "</div>", "",
               head("contact", "Contact"), "", "\n".join(socials), "",
               pic("divider.svg", ""), "", '<div align="center">\n',
               pic_png("ascii", "", 200), "", f"<sub>{html.escape(p['footer'])}</sub>", "\n</div>", ""]

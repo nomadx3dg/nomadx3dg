@@ -2,13 +2,16 @@ name: Update profile
 
 on:
   push:
-    paths: [profile.json, build.py, icons.json]
+    paths: [profile.json, build.py, icons.json, canvas.py, paint.py]
+  issues:
+    types: [opened]
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: update-profile
@@ -18,11 +21,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    if: github.event_name != 'issues' || startsWith(github.event.issue.title, 'paint:')
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - run: python paint.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: python build.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

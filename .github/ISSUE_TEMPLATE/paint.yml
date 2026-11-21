@@ -1,0 +1,85 @@
+name: Paint a pixel
+description: Add one pixel to the wall on the profile README
+title: "paint: pixel"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Pick a spot and a colour, then submit. A bot paints it and closes this issue, usually within a minute or two. One pixel per person every 5 minutes. Column 1 is the left edge, row 1 is the top.
+  - type: dropdown
+    id: column
+    attributes:
+      label: Column
+      options:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        - "6"
+        - "7"
+        - "8"
+        - "9"
+        - "10"
+        - "11"
+        - "12"
+        - "13"
+        - "14"
+        - "15"
+        - "16"
+        - "17"
+        - "18"
+        - "19"
+        - "20"
+        - "21"
+        - "22"
+        - "23"
+        - "24"
+        - "25"
+        - "26"
+        - "27"
+        - "28"
+        - "29"
+        - "30"
+        - "31"
+        - "32"
+    validations:
+      required: true
+  - type: dropdown
+    id: row
+    attributes:
+      label: Row
+      options:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        - "6"
+        - "7"
+        - "8"
+        - "9"
+        - "10"
+        - "11"
+        - "12"
+        - "13"
+        - "14"
+        - "15"
+        - "16"
+    validations:
+      required: true
+  - type: dropdown
+    id: colour
+    attributes:
+      label: Colour
+      options:
+        - Bone
+        - Ink
+        - Crimson
+        - Orange
+        - Yellow
+        - Green
+        - Blue
+        - Violet
+    validations:
+      required: true
