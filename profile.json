@@ -2,11 +2,11 @@
   "name": "Nomad",
   "github_username": "nomadx3dg",
   "tagline": "builder / wanderer / tinkerer",
-  "bio": "I'm Nomad. I make small, slightly weird tools and a lot of half-finished experiments, usually late at night. If something annoys me enough, I'll build my own fix for it. I'm always up for teaming up on something fun.",
+  "bio": "I'm Nomad, a student and a maker. I'm into philosophy, programming and drawing, and I want to invent things. I'm autistic, and I build small, slightly weird tools and half-finished experiments, usually late at night. If something annoys me enough, I'll build my own fix for it. Always up for teaming up on something fun.",
   "status": {
-    "working_on": "the thing I can't stop thinking about",
-    "learning": "something new, as usual",
-    "ask_me_about": "whatever you're curious about",
+    "working_on": "something new, details soon",
+    "learning": "about this life",
+    "ask_me_about": "philosophy, programming, drawing",
     "based_in": "Indonesia"
   },
   "links": {
@@ -54,5 +54,10 @@
       ["Neovim", "neovim"],
       ["GitHub Actions", "githubactions"]
     ]
+  },
+  "project_notes": {
+    "cubicle": "spin 3D scenes without leaving the shell",
+    "echostar": "a chess engine that studies you",
+    "bareboxn": "run Linux and BSD without root"
   }
 }

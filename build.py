@@ -217,8 +217,17 @@ def pin_card(t, r):
     cw = HALF - SH - 2
     b = f'<rect x="24" y="24" width="12" height="12" fill="{t["accent"]}"/>'
     b += txt(t, 46, 36, clip(r["repo"], 26), 18, "ink", 700)
-    for i, line in enumerate(textwrap.wrap(r["description"], 40)[:3]):
+    note = p.get("project_notes", {}).get(r["repo"])
+    lines = textwrap.wrap(r["description"], 40)
+    if note and len(lines) > 2:
+        lines = lines[:2]
+        while len(lines[1]) > 33 and " " in lines[1]:
+            lines[1] = lines[1].rsplit(" ", 1)[0]
+        lines[1] += "..."
+    for i, line in enumerate(lines[:3]):
         b += txt(t, 24, 68 + i * 20, line, 14, "muted")
+    if note:
+        b += txt(t, 24, 114, clip(note, 40), 13, "accent", 700)
     b += dashed(t, 24, cw - 24, 124)
     if r.get("language"):
         b += f'<circle cx="30" cy="146" r="5" fill="{t["accent"]}"/>' + txt(t, 42, 151, clip(r["language"], 14), 13, "muted")
