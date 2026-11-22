@@ -222,8 +222,8 @@ def pin_card(t, r):
     b += dashed(t, 24, cw - 24, 124)
     if r.get("language"):
         b += f'<circle cx="30" cy="146" r="5" fill="{t["accent"]}"/>' + txt(t, 42, 151, clip(r["language"], 14), 13, "muted")
-    meta = "  ".join(x for x in (f'stars {r["stars"]}' if r.get("stars") is not None else "",
-                                 f'forks {r["forks"]}' if r.get("forks") is not None else "") if x)
+    meta = "  ".join(x for x in (f'stars {r["stars"]}' if r.get("stars") else "",
+                                 f'forks {r["forks"]}' if r.get("forks") else "") if x)
     b += txt(t, cw - 24, 151, meta, 13, "muted", anchor="end")
     return card(t, HALF, 166, b, r["repo"])
 
@@ -277,6 +277,30 @@ def langs_card(t, d):
         b += (f'<rect x="24" y="{y + 7}" width="{max(4, (cw - 48) * pct / 100):.1f}" height="6" '
               f'fill="{t["accent"]}"/>')
     return card(t, HALF, 244, b, "Top languages")
+
+
+def langs_wide_card(t, d):
+    """Top languages as one stacked bar plus a legend. Used when the stats card is hidden."""
+    cw = FULL - SH - 2
+    cnt = Counter(l for _, l in (d["repos"] or []) if l)
+    tot = sum(cnt.values())
+    langs = [(k, v * 100 / tot) for k, v in cnt.most_common(6)] if tot else []
+    b = txt(t, 24, 36, "TOP LANGUAGES", 12, "muted", 700, extra='letter-spacing="2"')
+    if not langs:
+        b += txt(t, 24, 72, "no language data yet", 14, "muted")
+        return card(t, FULL, 100, b, "Top languages")
+    cols = [t["accent"], mix(t["accent"], t["bg"], .3), mix(t["accent"], t["bg"], .55),
+            t["muted"], mix(t["muted"], t["bg"], .4), t["faint"]]
+    inner, x = cw - 48, 24.0
+    for i, (k, pct) in enumerate(langs):
+        w = max(6.0, inner * pct / 100)
+        b += f'<rect x="{x:.1f}" y="52" width="{max(1.0, w - 2):.1f}" height="14" fill="{cols[i]}"><title>{escape(k)} {pct:.0f}%</title></rect>'
+        x += w
+    for i, (k, pct) in enumerate(langs):
+        lx = 24 + i * 128
+        b += f'<rect x="{lx}" y="86" width="10" height="10" fill="{cols[i]}"/>'
+        b += txt(t, lx + 16, 96, clip(k, 11), 13) + txt(t, lx + 16, 112, f"{pct:.0f}%", 12, "muted")
+    return card(t, FULL, 130, b, "Top languages")
 
 
 def heatmap_card(t, d):
@@ -564,8 +588,12 @@ def build(d):
     st = canvas.load()
     emit("wall.svg", lambda t: wall_card(t, st))
     emit("paint-btn.svg", lambda t: button_svg(t, "PAINT A PIXEL"))
-    emit("stats.svg", lambda t: stats_card(t, d), fresh=d["repos"] is not None)
-    emit("langs.svg", lambda t: langs_card(t, d), fresh=d["repos"] is not None)
+    show_stats = p.get("show_stats", False)
+    if show_stats:
+        emit("stats.svg", lambda t: stats_card(t, d), fresh=d["repos"] is not None)
+        emit("langs.svg", lambda t: langs_card(t, d), fresh=d["repos"] is not None)
+    else:
+        emit("langs-wide.svg", lambda t: langs_wide_card(t, d), fresh=d["repos"] is not None)
     if d["calendar"]:
         emit("heatmap.svg", lambda t: heatmap_card(t, d))
     else:
@@ -627,7 +655,11 @@ def build(d):
               head("activity", "Activity"), ""]
     if (root / "assets" / "light" / "heatmap.svg").exists():
         parts += [pic("heatmap.svg", "Contribution activity, past year"), ""]
-    parts += ["\n".join([pic("stats.svg", "GitHub stats", "49%"), pic("langs.svg", "Top languages", "49%")]), "",
+    if show_stats:
+        parts += ["\n".join([pic("stats.svg", "GitHub stats", "49%"), pic("langs.svg", "Top languages", "49%")]), ""]
+    else:
+        parts += [pic("langs-wide.svg", "Top languages"), ""]
+    parts += [
               head("wall", "Pixel wall"), "", pic("wall.svg", "Collaborative pixel wall, painted by visitors"), "",
               '<div align="center">\n',
               pic("paint-btn.svg", "Paint a pixel", "190", f"https://github.com/{gh}/{gh}/issues/new?template=paint.yml"),
