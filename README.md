@@ -27,11 +27,11 @@ I'm Nomad, a student and a maker. I'm into philosophy, programming and drawing, 
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-latest.svg?v=514eed82"><img src="assets/light/h-latest.svg?v=d57115ad" width="100%" alt="Recent" /></picture>
 
-<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=02b6c85b"><img src="assets/light/latest.svg?v=fbc9c03d" width="100%" alt="Recent GitHub activity" /></picture></a>
+<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=f03af84d"><img src="assets/light/latest.svg?v=14e3d04b" width="100%" alt="Recent GitHub activity" /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg?v=2367f981"><img src="assets/light/h-activity.svg?v=59a9d7ca" width="100%" alt="Activity" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=4cbd3689"><img src="assets/light/heatmap.svg?v=dd04a80c" width="100%" alt="Contribution activity, past year" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=efec736a"><img src="assets/light/heatmap.svg?v=e53cffad" width="100%" alt="Contribution activity, past year" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs-wide.svg?v=64570d5a"><img src="assets/light/langs-wide.svg?v=28035a57" width="100%" alt="Top languages" /></picture>
 
