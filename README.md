@@ -16,10 +16,10 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-projects.svg?v=2a55098f"><img src="assets/light/h-projects.svg?v=90e4059a" width="100%" alt="Projects" /></picture>
 
-<a href="https://github.com/nomadx3dg/cubicle"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-1.svg?v=272945ed"><img src="assets/light/pin-1.svg?v=9a9cef15" width="49%" alt="cubicle: Interactive 3D renderer for your terminal. " /></picture></a>
-<a href="https://github.com/nomadx3dg/echostar"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-2.svg?v=d7d831ba"><img src="assets/light/pin-2.svg?v=f679ee6d" width="49%" alt="echostar: chess engine that learns how you play, then plays your style while staying correct." /></picture></a>
+<a href="https://github.com/nomadx3dg/cubicle"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-1.svg?v=52778b50"><img src="assets/light/pin-1.svg?v=cfbe44ed" width="49%" alt="cubicle: Interactive 3D renderer for your terminal. " /></picture></a>
+<a href="https://github.com/nomadx3dg/echostar"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-2.svg?v=c9f3dc95"><img src="assets/light/pin-2.svg?v=1c5b0c54" width="49%" alt="echostar: chess engine that learns how you play, then plays your style while staying correct." /></picture></a>
 
-<a href="https://github.com/nomadx3dg/bareboxn"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-3.svg?v=1a851549"><img src="assets/light/pin-3.svg?v=53a5e9d7" width="49%" alt="bareboxn: A native rootless Linux and BSD OS emulator. " /></picture></a>
+<a href="https://github.com/nomadx3dg/bareboxn"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-3.svg?v=d4ec7a00"><img src="assets/light/pin-3.svg?v=256bf0eb" width="49%" alt="bareboxn: A native rootless Linux and BSD OS emulator. " /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-stack.svg?v=034fa282"><img src="assets/light/h-stack.svg?v=da1aef07" width="100%" alt="Stack" /></picture>
 
@@ -27,14 +27,13 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-latest.svg?v=514eed82"><img src="assets/light/h-latest.svg?v=d57115ad" width="100%" alt="Recent" /></picture>
 
-<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=bfba8aee"><img src="assets/light/latest.svg?v=7761ab55" width="100%" alt="Recent GitHub activity" /></picture></a>
+<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=02b6c85b"><img src="assets/light/latest.svg?v=fbc9c03d" width="100%" alt="Recent GitHub activity" /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg?v=2367f981"><img src="assets/light/h-activity.svg?v=59a9d7ca" width="100%" alt="Activity" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=216be47c"><img src="assets/light/heatmap.svg?v=fb4bacdf" width="100%" alt="Contribution activity, past year" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=7ea28e15"><img src="assets/light/heatmap.svg?v=40cf0d7e" width="100%" alt="Contribution activity, past year" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg?v=f9193866"><img src="assets/light/stats.svg?v=d985933f" width="49%" alt="GitHub stats" /></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs.svg?v=e4f54e0d"><img src="assets/light/langs.svg?v=3ffe5ed7" width="49%" alt="Top languages" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs-wide.svg?v=64570d5a"><img src="assets/light/langs-wide.svg?v=28035a57" width="100%" alt="Top languages" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-wall.svg?v=4173e471"><img src="assets/light/h-wall.svg?v=249f8055" width="100%" alt="Pixel wall" /></picture>
 
@@ -50,6 +49,7 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-contact.svg?v=c31b9918"><img src="assets/light/h-contact.svg?v=13ae7b43" width="100%" alt="Contact" /></picture>
 
+<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/social-github.svg?v=c2edae75"><img src="assets/light/social-github.svg?v=c3f9aa40" width="129" alt="GitHub" /></picture></a>
 <a href="mailto:moqxcz@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/social-email.svg?v=1b10e2aa"><img src="assets/light/social-email.svg?v=ddb18309" width="119" alt="Email" /></picture></a>
 <a href="https://nomadx3dg.vercel.app"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/social-website.svg?v=b7e471eb"><img src="assets/light/social-website.svg?v=ff41e48d" width="138" alt="Website" /></picture></a>
 <a href="https://www.tiktok.com/@nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/social-tiktok.svg?v=144f9e1d"><img src="assets/light/social-tiktok.svg?v=800b0251" width="129" alt="TikTok" /></picture></a>
