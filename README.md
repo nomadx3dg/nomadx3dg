@@ -19,7 +19,7 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 <a href="https://github.com/nomadx3dg/cubicle"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-1.svg?v=272945ed"><img src="assets/light/pin-1.svg?v=9a9cef15" width="49%" alt="cubicle: Interactive 3D renderer for your terminal. " /></picture></a>
 <a href="https://github.com/nomadx3dg/echostar"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-2.svg?v=d7d831ba"><img src="assets/light/pin-2.svg?v=f679ee6d" width="49%" alt="echostar: chess engine that learns how you play, then plays your style while staying correct." /></picture></a>
 
-<a href="https://github.com/nomadx3dg/bareboxn"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-3.svg?v=2645ae65"><img src="assets/light/pin-3.svg?v=13cf14f3" width="49%" alt="bareboxn: A native rootless Linux and BSD OS emulator. " /></picture></a>
+<a href="https://github.com/nomadx3dg/bareboxn"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/pin-3.svg?v=1a851549"><img src="assets/light/pin-3.svg?v=53a5e9d7" width="49%" alt="bareboxn: A native rootless Linux and BSD OS emulator. " /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-stack.svg?v=034fa282"><img src="assets/light/h-stack.svg?v=da1aef07" width="100%" alt="Stack" /></picture>
 
@@ -27,14 +27,14 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-latest.svg?v=514eed82"><img src="assets/light/h-latest.svg?v=d57115ad" width="100%" alt="Recent" /></picture>
 
-<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=c033056c"><img src="assets/light/latest.svg?v=b642816f" width="100%" alt="Recent GitHub activity" /></picture></a>
+<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=bfba8aee"><img src="assets/light/latest.svg?v=7761ab55" width="100%" alt="Recent GitHub activity" /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg?v=2367f981"><img src="assets/light/h-activity.svg?v=59a9d7ca" width="100%" alt="Activity" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=97765d0f"><img src="assets/light/heatmap.svg?v=298d4db5" width="100%" alt="Contribution activity, past year" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=f338e3c4"><img src="assets/light/heatmap.svg?v=d423952f" width="100%" alt="Contribution activity, past year" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg?v=99236359"><img src="assets/light/stats.svg?v=baae62ff" width="49%" alt="GitHub stats" /></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs.svg?v=3290a8e7"><img src="assets/light/langs.svg?v=8d5928d7" width="49%" alt="Top languages" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg?v=03ed3eaf"><img src="assets/light/stats.svg?v=838d281f" width="49%" alt="GitHub stats" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs.svg?v=e4f54e0d"><img src="assets/light/langs.svg?v=3ffe5ed7" width="49%" alt="Top languages" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-wall.svg?v=4173e471"><img src="assets/light/h-wall.svg?v=249f8055" width="100%" alt="Pixel wall" /></picture>
 

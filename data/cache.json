@@ -17,7 +17,7 @@
     {
       "description": "A native rootless Linux and BSD OS emulator. ",
       "forks": 0,
-      "language": null,
+      "language": "C++",
       "repo": "bareboxn",
       "stars": 0
     }
