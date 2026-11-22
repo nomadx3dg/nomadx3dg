@@ -31,9 +31,9 @@ I'm Nomad. I make small, slightly weird tools and a lot of half-finished experim
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg?v=2367f981"><img src="assets/light/h-activity.svg?v=59a9d7ca" width="100%" alt="Activity" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=f338e3c4"><img src="assets/light/heatmap.svg?v=d423952f" width="100%" alt="Contribution activity, past year" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=216be47c"><img src="assets/light/heatmap.svg?v=fb4bacdf" width="100%" alt="Contribution activity, past year" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg?v=03ed3eaf"><img src="assets/light/stats.svg?v=838d281f" width="49%" alt="GitHub stats" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/stats.svg?v=f9193866"><img src="assets/light/stats.svg?v=d985933f" width="49%" alt="GitHub stats" /></picture>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs.svg?v=e4f54e0d"><img src="assets/light/langs.svg?v=3ffe5ed7" width="49%" alt="Top languages" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-wall.svg?v=4173e471"><img src="assets/light/h-wall.svg?v=249f8055" width="100%" alt="Pixel wall" /></picture>
