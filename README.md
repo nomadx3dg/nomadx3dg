@@ -27,13 +27,13 @@ I'm Nomad, a student and a maker. I'm into philosophy, programming and drawing, 
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-latest.svg?v=514eed82"><img src="assets/light/h-latest.svg?v=d57115ad" width="100%" alt="Recent" /></picture>
 
-<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=af13bcae"><img src="assets/light/latest.svg?v=90b2a35b" width="100%" alt="Recent GitHub activity" /></picture></a>
+<a href="https://github.com/nomadx3dg"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/latest.svg?v=261d9dbb"><img src="assets/light/latest.svg?v=535ed421" width="100%" alt="Recent GitHub activity" /></picture></a>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-activity.svg?v=2367f981"><img src="assets/light/h-activity.svg?v=59a9d7ca" width="100%" alt="Activity" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=576628b0"><img src="assets/light/heatmap.svg?v=0abddc07" width="100%" alt="Contribution activity, past year" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/heatmap.svg?v=877c0f05"><img src="assets/light/heatmap.svg?v=760fa2a9" width="100%" alt="Contribution activity, past year" /></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs-wide.svg?v=64570d5a"><img src="assets/light/langs-wide.svg?v=28035a57" width="100%" alt="Top languages" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/langs-wide.svg?v=6b21ca60"><img src="assets/light/langs-wide.svg?v=842f4268" width="100%" alt="Top languages" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/h-wall.svg?v=4173e471"><img src="assets/light/h-wall.svg?v=249f8055" width="100%" alt="Pixel wall" /></picture>
 
